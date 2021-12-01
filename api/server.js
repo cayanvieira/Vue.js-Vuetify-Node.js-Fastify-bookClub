@@ -1,0 +1,24 @@
+
+const fastify = require('fastify')({ logger: true })
+
+//Banco de dados
+require('./database/dbConnector')(fastify)
+
+//cors
+fastify.register(require("fastify-cors"),{origin:"*"})
+
+//Rotas
+fastify.register(require('./routes/register'))
+
+
+
+const start = async () => {
+  try {
+    await fastify.listen(3000)
+    console.log("Sucess Server On")
+  } catch (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+}
+start()
