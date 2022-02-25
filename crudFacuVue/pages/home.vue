@@ -1,0 +1,9 @@
+<template>
+    <v-app>
+        <v-container>
+            <div>
+                Entrou
+            </div>
+        </v-container>
+    </v-app>
+</template>

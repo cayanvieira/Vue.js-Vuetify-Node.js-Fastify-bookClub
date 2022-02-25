@@ -1,88 +1,100 @@
 <template>
     <v-app>
-        <v-main>
-            <v-container>
-                <v-row justify = "center" >                   
-                    <v-col cols=5>
-                        <v-card class="d-flex flex-column justify-center align-center mt-16">
-                            <div class="ma-16"> 
-                            <v-btn to="/">
-                                Home
-                            </v-btn>
-                            </div>
-                        </v-card>                        
-                    </v-col>
-                </v-row>
-                <v-row justify = 'center'>
-                    <v-col cols=5>
+        <v-main class="d-flex justify-center align-center blue-grey darken-3">
+            <v-container class="d-flex justify-center">
+                <v-card 
+                    class="d-flex justify-center  rounded-xl"
+                    height="600px"
+                    width="550px"
+                >
+                    <v-col>
+                        <v-row  class="d-flex justify-center">
+                                <v-img
+                                class="ma-5"
+                                src="img/shield.jpg"
+                                max-height="300px"
+                                max-width="300px"
+                            ></v-img> 
+                        </v-row>
                         <v-form >
-                            <v-col>
+                            <v-row>
                                 <v-text-field
                                     v-model="form.name"                               
-                                    label="Nome"                                    
+                                    label="Nome Completo"                                    
                                     hide-details="true"
-                                    required="true"
+                                    required="true"                                    
+                                    class="mx-5 mt-2"
                                 ></v-text-field>
-                            </v-col>
+                            </v-row>
 
-                            <v-col>
-                                <v-text-field
-                                    v-model="form.lastName"                               
-                                    label="Sobrenome"                                    
-                                    hide-details="true"
-                                ></v-text-field>
-                            </v-col>
-
-                            <v-col>
+                            <v-row>
                                 <v-text-field
                                     v-model="form.document"                               
-                                    label="Data de Nacimento"                                    
+                                    label="Data de Nascimento"                                    
                                     hide-details="true"
+                                    class="mx-5 mt-2"
                                 ></v-text-field>
-                            </v-col>
+                            </v-row>
 
-                            <v-col>
-                                <v-text-field
-                                    v-model="form.registration"
-                                    label="Matricula"                                    
-                                    hide-details="true"                                    
-                                ></v-text-field>
-                            </v-col>                            
-
-                            <v-col>
+                            <v-row>
                                 <v-text-field
                                     v-model="form.email"
                                     label="E-mail"                                    
                                     hide-details="true"
+                                    class="mx-5 mt-2"
                                 ></v-text-field>
-                            </v-col>
-
-                        
-                            <v-row justify= 'center'>
-                                <v-btn class =" mt-10"
-                                :disabled=alertRegister
-                                @click ="subimit(),alertRegister=true"                                
-                                >
-                                    Inscrever-se
-                                </v-btn>                  
                             </v-row>
 
-                            <v-alert v-if="alertRegister">
-                               
-                                    Aluno Inscrito com Sucesso                                   
-                                    <v-btn 
-                                    class="ma-5"
-                                    @click="alertRegister=false">
-                                        <v-icon>
-                                            mdi-close
-                                        </v-icon>
-                                    </v-btn>
-                               
-                            </v-alert>                          
-                                
+                             <v-row>
+                                <v-text-field                                    
+                                    label="Senha"                                    
+                                    hide-details="true"
+                                    class="mx-5 mt-2"
+                                    type="password"                                    
+                                ></v-text-field>
+                            </v-row>
+
+                            <v-row>
+                                <v-text-field                                    
+                                    label="Confirmar Senha"                                    
+                                    hide-details="true"
+                                    class="mx-5 mt-2"
+                                    type="password"
+                                ></v-text-field>
+                            </v-row>
+
+                        
+                            <v-row class="justify-center">
+                                <v-btn 
+                                    class =" ma-13 blue-grey darken-3 white--text"
+                                    :disabled=alertRegister
+                                    @click ="subimit(),alertRegister=true"                                
+                                >
+                                    Cadastrar-se
+                                </v-btn>                  
+                            </v-row>  
+
                         </v-form> 
-                    </v-col>                   
-                </v-row>
+                    
+                    </v-col> 
+                </v-card>   
+
+            </v-container>
+
+            <v-container class="d-flex justify-center ">
+                <v-modal>
+                    <v-alert v-if="alertRegister" class="rounded-xl">                
+                        Cadastrado com Sucesso
+                        <v-btn
+                        color="blue-grey darken-3 white--text rounded-xl"                
+                        class="ma-5"
+                        to="/">
+                            <v-icon>
+                                mdi-close
+                            </v-icon>
+                        </v-btn>                                    
+                    </v-alert> 
+                </v-modal>
             </v-container>
         </v-main>     
     </v-app>        
