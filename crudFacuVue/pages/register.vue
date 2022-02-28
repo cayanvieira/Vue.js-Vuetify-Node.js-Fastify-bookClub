@@ -85,12 +85,12 @@
             <v-dialog 
                     v-model="alertRegister" 
                     class="d-flex align-center"
-                    width="500px" 
+                    width="600px" 
                     height="300px"
                                   
                 >
                     <v-card 
-                    width="500px" 
+                    width="600px" 
                     height="100px"
                     class="d-flex justify-center" 
                     > 
@@ -113,11 +113,11 @@
             <v-dialog 
                 v-model="alertPassword"
                 class="d-flex align-center"
-                width="500px" 
+                width="600px" 
                 height="300px"
             >
                 <v-card
-                    width="500px" 
+                    width="600px" 
                     height="100px"
                     class="d-flex justify-center" 
                 >
@@ -136,12 +136,37 @@
                     </div>
                 </v-card>
             </v-dialog>
+            <v-dialog 
+                v-model="alertNullPassword"
+                class="d-flex align-center"
+                width="600px" 
+                height="300px"
+            >
+                <v-card
+                    width="600px" 
+                    height="100px"
+                    class="d-flex justify-center" 
+                >
+                    <v-card-title>
+                        Campo "senha" ou "confirmar senha" vazio!
+                    </v-card-title>
+                    <div class="d-flex align-center">
+                        <v-btn
+                            color="blue-grey darken-3 white--text rounded-xl"  
+                            @click="alertNullPassword = false"
+                        >
+                            <v-icon >
+                                mdi-close
+                            </v-icon>
+                        </v-btn>   
+                    </div>
+                </v-card>
+            </v-dialog>
         </v-main>     
     </v-app>        
 </template>
 
 <script>
-
 export default {    
     data(){
         return{
@@ -154,7 +179,8 @@ export default {
               
             },
             alertPassword:false,
-            alertRegister:false          
+            alertRegister:false ,
+            alertNullPassword:false,                    
         }       
     },
     watch:{
@@ -166,7 +192,7 @@ export default {
     },
     methods: {
         subimit(){
-            if( this.form.password == this.form.checkPassword ) {           
+            if( this.form.password == this.form.checkPassword && this.form.password !=null) {           
                 const params ={
                     name:this.form.name,
                     birthData:this.form.birthData,        
@@ -175,7 +201,11 @@ export default {
                 }
                 this.$store.dispatch("Account/register",params)
                 this.alertRegister = true   
-            }else{
+            }
+            else if (this.form.password === null || this.form.checkPassword  === null  ){
+                return this.alertNullPassword = true
+            }
+            else{
                 return this.alertPassword = true
             }         
         }
