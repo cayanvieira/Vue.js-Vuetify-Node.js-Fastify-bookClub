@@ -162,6 +162,32 @@
                     </div>
                 </v-card>
             </v-dialog>
+            <v-dialog 
+                v-model="alertNullEmail"
+                class="d-flex align-center"
+                width="600px" 
+                height="300px"
+            >
+                <v-card
+                    width="600px" 
+                    height="100px"
+                    class="d-flex justify-center" 
+                >
+                    <v-card-title>
+                        Campo "E-mail" vazio!
+                    </v-card-title>
+                    <div class="d-flex align-center">
+                        <v-btn
+                            color="blue-grey darken-3 white--text rounded-xl"  
+                            @click="alertNullEmail = false"
+                        >
+                            <v-icon >
+                                mdi-close
+                            </v-icon>
+                        </v-btn>   
+                    </div>
+                </v-card>
+            </v-dialog>
         </v-main>     
     </v-app>        
 </template>
@@ -180,7 +206,8 @@ export default {
             },
             alertPassword:false,
             alertRegister:false ,
-            alertNullPassword:false,                    
+            alertNullPassword:false,
+            alertNullEmail:false,                    
         }       
     },
     watch:{
@@ -201,6 +228,9 @@ export default {
                 }
                 this.$store.dispatch("Account/register",params)
                 this.alertRegister = true   
+            }
+            else if (this.form.email === null  ){
+                return this.alertNullEmail = true
             }
             else if (this.form.password === null || this.form.checkPassword  === null  ){
                 return this.alertNullPassword = true
