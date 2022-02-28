@@ -1,9 +1,8 @@
 <template>
     <v-app>
         <v-container>
-            <div>
-                Entrou
-            </div>
+           <v-navigation-drawer app></v-navigation-drawer>
+           <v-app-bar app></v-app-bar>
         </v-container>
     </v-app>
 </template>

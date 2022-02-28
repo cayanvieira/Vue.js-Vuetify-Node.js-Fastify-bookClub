@@ -1,24 +1,19 @@
 exports.up = function(knex){
-    return knex.schema.createTable('users', (table) => {
+    return knex.schema.createTable('account', (table) => {
       
       table.increments("user_id");
   
       table.string('name');    
       
-      table.string("lastName")
-
-      table.string("document")
-
-      table.string("registration")
+      table.string("birthData")
 
       table.string("email")
-  
-      
-        
+
+      table.string("password")
     })
     .then(()=>console.log("Success Table Users"))    
   }; 
   
   exports.down = function (knex) {
-    return knex.schema.dropTable('users')
+    return knex.schema.dropTable('account')
   };

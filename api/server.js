@@ -8,7 +8,7 @@ require('./database/dbConnector')(fastify)
 fastify.register(require("fastify-cors"),{origin:"*"})
 
 //Rotas
-fastify.register(require('./routes/register'))
+fastify.register(require('./routes/account.js'))
 
 
 

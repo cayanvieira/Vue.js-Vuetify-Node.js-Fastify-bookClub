@@ -66,26 +66,17 @@
 
 export default {
     created(){
-        this.fetch()
+        
     },
     data(){
         return{
-            accounts:[],          
+                     
         }       
     },
     watch:{
-        accounts(value){
-            
-        }
+       
     },
-    methods: {
-        fetch(){
-            this.$store.dispatch("Index/accounts")
-                .then( data =>  this.accounts = data) 
-        },
-        deleteAccount(user_id){
-            this.$store.dispatch('Index/deleteAccount', {user_id})            
-        }
+    methods: {        
     }
 }
 </script>
