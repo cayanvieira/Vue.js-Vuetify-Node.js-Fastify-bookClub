@@ -56,7 +56,7 @@
                                 </v-btn>
                             </v-row>
                         </v-col>                     
-                    </v-card>                  
+                    </v-card>                                    
                 </div>
                 <v-dialog 
                 v-model="alertLogin"
@@ -103,7 +103,8 @@ export default {
                 email:null,
                 password:null
             },           
-            alertLogin:false            
+            alertLogin:false,
+            whoami:null           
         }       
     },
     watch:{
@@ -115,13 +116,13 @@ export default {
                 email : this.dataLogin.email,
                 password : this.dataLogin.password
             }
-            const auth = await this.$store.dispatch("Auth/login",params)
-
-            if(auth == null){
+            this.whoami = await this.$store.dispatch("Auth/login",params)
+            const id= this.whoami.user_id
+            if(this.whoami == null){
                 return this.alertLogin = true
             }
             else{
-                return this.$router.push("/home")
+                return this.$router.push(`${id}/home`)
             }
         }        
     }
