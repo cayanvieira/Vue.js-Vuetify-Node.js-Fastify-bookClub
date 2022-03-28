@@ -11,11 +11,13 @@
                         <v-col>
                             <v-row  class="d-flex justify-center">
                                 <v-img
-                                class="ma-2"
-                                src="img/shield.jpg"
+                                class="my-12"
+                                src="img/logoBook.png"
                                 max-height="300px"
                                 max-width="300px"
-                            ></v-img> 
+                                color="red"
+                                >
+                                </v-img> 
                             </v-row>
                             <v-row                    
                             >
@@ -47,7 +49,7 @@
                                     Entrar
                                 </v-btn>                            
                                 <v-btn
-                                color="cyan lighten-1 white--text"  
+                                color="blue-grey darken-3 white--text"
                                 class="ma-3 mx-5" 
                                 width="100px" 
                                 to="/register"
@@ -117,13 +119,14 @@ export default {
                 password : this.dataLogin.password
             }
             this.whoami = await this.$store.dispatch("Auth/login",params)
-            const id= this.whoami.user_id
-            if(this.whoami == null){
+           
+            if (this.whoami) {
+                const id= this.whoami.user_id
+                return this.$router.push(`${id}/home`)
+            }else{
                 return this.alertLogin = true
             }
-            else{
-                return this.$router.push(`${id}/home`)
-            }
+            
         }        
     }
 }

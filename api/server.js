@@ -10,6 +10,7 @@ fastify.register(require("fastify-cors"),{origin:"*"})
 //Rotas
 fastify.register(require('./routes/account.js'))
 fastify.register(require('./routes/auth.js'))
+fastify.register(require('./routes/club.js'))
 
 
 
