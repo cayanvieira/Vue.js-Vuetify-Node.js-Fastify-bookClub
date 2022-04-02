@@ -1,4 +1,4 @@
-# crudVueNode
+# bookClub
 
 // para ligar o servidor backend va na pasta api
     nodemon server.js
