@@ -1,10 +1,24 @@
 <template>
     <v-container>
         <v-navigation-drawer app v-if="drawer"
-            color="blue-grey darken-3 white--text" 
+            color="blue-grey darken-3 white--text"
+            img
+            class=".d-flex"       
         >
             <!-- Ajeitar imagem do usuario no futuro, aqui apenas para definir template-->
-            <v-img height='200px'></v-img>
+            <div class="d-flex justify-center">
+                <v-list>
+                    <v-list-item>
+                        <v-list-item-avatar height="150px" width="150px" class="ma-auto">
+                            <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
+                        </v-list-item-avatar>
+                    </v-list-item>               
+                </v-list>
+            </div>
+        
+            <div class="d-flex justify-center ma-3 font-italic text-decoration-underline">
+                {{whoami.name.toUpperCase()}}
+            </div>            
             <v-list-item-group>                
                 <v-divider></v-divider>
                 <v-list-item class=" color white--text">
@@ -37,6 +51,20 @@
                     Configurações
                 </v-list-item>
                 <v-divider></v-divider>
+                <v-list-item 
+                    class=" color white--text"
+                    @click="logoff()"
+                
+                >
+                    <v-icon 
+                        class="mr-2"
+                        color="white"
+                    >
+                        mdi-logout
+                    </v-icon>
+                    Sair
+                </v-list-item>
+                <v-divider></v-divider>
             </v-list-item-group> 
             
             <template v-slot:append>
@@ -48,6 +76,7 @@
                     <v-icon color="blue-grey darken-3">mdi-close</v-icon>
                 </v-btn>   
                 </div>
+                
             </template>           
            
         </v-navigation-drawer >
@@ -58,10 +87,9 @@
             <v-btn v-if="!drawer"
                 @click="drawer = !drawer"
                 color="cyan lighten-1 white--text"
-                                    
             >
                 <v-icon>mdi-menu</v-icon>
-            </v-btn>                                             
+            </v-btn>                                
         </v-app-bar>           
     </v-container>
 </template>
@@ -69,7 +97,18 @@
 export default {
     data(){
         return{
-            drawer : false
+            drawer : false            
+        }
+    },
+    computed:{
+        whoami(){
+            return this.$store.state.Auth.user
+        }
+    },
+    methods:{
+        logoff(){
+            window.localStorage.removeItem('user')            
+            this.$router.go("/")
         }
     }
 }

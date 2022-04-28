@@ -5,13 +5,17 @@ exports.up = function(knex){
   
       table.string('name');    
       
-      table.string("date_create");
+      table.string("actual_book");
 
       table.string("owner");
      
-      table.string("actual_book");
+      table.string("password");
 
       table.integer("group_limit");
+
+      table.json("description")
+
+      table.string("meeting_date");
 
     })
     .then(()=>console.log("Success Table Users"))    
@@ -20,3 +24,4 @@ exports.up = function(knex){
   exports.down = function (knex) {
     return knex.schema.dropTable('club')
   };
+  

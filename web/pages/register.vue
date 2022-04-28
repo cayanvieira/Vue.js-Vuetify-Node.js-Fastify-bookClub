@@ -10,10 +10,10 @@
                     <v-col>
                         <v-row  class="d-flex justify-center">
                                 <v-img
-                                class="ma-5"
-                                src="img/shield.jpg"
+                                class="my-12"
+                                src="img/logoBook.png"
                                 max-height="300px"
-                                max-width="300px"
+                                max-width="300px"                                                                 
                             ></v-img> 
                         </v-row>
                         <v-form >
@@ -69,11 +69,19 @@
                         
                             <v-row class="justify-center">
                                 <v-btn 
-                                    class =" ma-13 blue-grey darken-3 white--text"
+                                    class =" ma-5 blue-grey darken-3 white--text"
                                     :disabled=alertRegister
                                     @click ="subimit()"                                
                                 >
                                     Cadastrar-se
+                                </v-btn>                  
+                            </v-row>
+                                 <v-row class="justify-center">
+                                <v-btn 
+                                    class =" ma-5 blue-grey darken-3 white--text"
+                                    to="/"                                                                  
+                                >
+                                    Voltar
                                 </v-btn>                  
                             </v-row>
                         </v-form> 

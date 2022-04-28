@@ -11,6 +11,7 @@ fastify.register(require("fastify-cors"),{origin:"*"})
 fastify.register(require('./routes/account.js'))
 fastify.register(require('./routes/auth.js'))
 fastify.register(require('./routes/club.js'))
+fastify.register(require('./routes/book.js'))
 
 
 

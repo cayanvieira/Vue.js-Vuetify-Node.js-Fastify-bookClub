@@ -1,0 +1,21 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "fastify-cors": "^6.0.2",
+    "fastify": "^3.24.0",
+    "knex": "^0.95.14",
+    "nodemon": "^2.0.15",
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "nodemon":"nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -3,6 +3,7 @@
         <v-main class="d-flex justify-center align-center blue-grey darken-3">                   
             <v-container class="d-flex justify-center" >                                              
                 <div>
+                    
                     <v-card
                         class="d-flex justify-center  rounded-xl "
                         height="450px"
@@ -95,10 +96,7 @@
 
 <script>
 
-export default {
-    created(){
-        
-    },
+export default {   
     data(){
         return{
             dataLogin:{
@@ -109,7 +107,14 @@ export default {
             whoami:null           
         }       
     },
-    watch:{
+    created(){
+        this.$store.dispatch("Auth/sync")
+            .then(user =>{
+                    if(user){
+                        this.$router.push(`/home`)
+                    }
+                })
+        
     },
     methods: {
        
@@ -119,15 +124,14 @@ export default {
                 password : this.dataLogin.password
             }
             this.whoami = await this.$store.dispatch("Auth/login",params)
-           
-            if (this.whoami) {
-                const id= this.whoami.user_id
-                return this.$router.push(`${id}/home`)
+           console.log(this.whoami)
+            if (this.whoami) {                
+                return this.$router.push(`/home`)
             }else{
                 return this.alertLogin = true
-            }
-            
-        }        
+            }            
+        }
+
     }
 }
 </script>
