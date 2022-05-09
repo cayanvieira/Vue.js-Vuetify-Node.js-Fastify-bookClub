@@ -124,7 +124,7 @@ export default {
                 password : this.dataLogin.password
             }
             this.whoami = await this.$store.dispatch("Auth/login",params)
-           console.log(this.whoami)
+           
             if (this.whoami) {                
                 return this.$router.push(`/home`)
             }else{

@@ -1,6 +1,4 @@
-export const state = () => ({
-  
-})
+export const state = () => ({})
 
 export const getters = {}
 
@@ -26,8 +24,6 @@ export const actions = {
       })
       .then(response => response.data)
   },
-
-  
    
   async fetch() {
     return (await this.$axios.get('/club')
@@ -40,6 +36,4 @@ export const actions = {
   },  
 }
 
-export const mutations = {
- 
-}
+export const mutations = {}

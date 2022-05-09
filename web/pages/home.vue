@@ -357,7 +357,7 @@ export default {
             if (this.intoClub) {    
                 return this.$router.push(`/club/${this.detail.id}`)
             }else{
-                return this.alertLoginInClub = true
+                return this.alertLoginInClub = false
             }            
         },
         registerBook() {
