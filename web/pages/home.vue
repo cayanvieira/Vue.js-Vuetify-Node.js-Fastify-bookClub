@@ -337,7 +337,7 @@ export default {
             }
             params.groupLimit=parseInt(params.groupLimit)
             if(params.groupLimit){
-                if(this.formClub.password === this.formClub.checkPassword){
+                if(this.formClub.password === this.formClub.checkPassword && this.formClub.password != null){
                     this.$store.dispatch("Club/create",params)
                         .then(()=> this.$router.go())
                     }else{

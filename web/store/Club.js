@@ -30,6 +30,11 @@ export const actions = {
     ).data
   },
 
+  async get(_,id) {
+    return (await this.$axios.get(`/club/${id}`)
+    ).data
+  },
+
   async fetchNewClubs() {
     return (await this.$axios.get('/newclubs')
     ).data

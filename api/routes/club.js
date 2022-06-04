@@ -36,6 +36,19 @@ async function routes (fastify, options) {
   )
 
   fastify.get(
+    "/club/:id",
+    async(request,reply)=>{
+
+      const {id} = request.params
+      fastify.knex("club")
+        .select('*')
+        .where('id',id)
+        .first()                 
+        .then(data=>reply.send(data))
+    }
+  )
+
+  fastify.get(
     "/newclubs",
     async(request,reply)=>{
       

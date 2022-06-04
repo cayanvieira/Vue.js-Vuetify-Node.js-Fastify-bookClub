@@ -217,14 +217,7 @@ export default {
             alertNullPassword:false,
             alertNullEmail:false,                    
         }       
-    },
-    watch:{
-        form(value){
-            if(value){
-                return this.form
-            }
-        },  
-    },
+    },    
     methods: {
         subimit(){
             if( this.form.password == this.form.checkPassword && this.form.password !=null) {           
