@@ -1,8 +1,8 @@
 // para ligar o servidor backend va na pasta api
     nodemon server.js
-// para ligar o frontend va na pasta crudFacuVue
+// para ligar o frontend va na pasta web
     npm run dev
-// subir tabelas
+// subir tabelas va na pasta api/database
     knex migrate:latest
-// descer tabelas
+// descer tabelas va na pasta api/database
     knex migrate:down

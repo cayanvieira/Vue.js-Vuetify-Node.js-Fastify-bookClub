@@ -5,11 +5,18 @@ exports.up = function(knex){
   
       table.string('name');    
       
-      table.string("birthData")
+      table.string("birthData");
 
-      table.string("email")
+      table.string("sex");
 
-      table.string("password")
+      table.string("email");
+
+      table.string("password");
+
+      table.string("uf");
+
+      table.boolean("administer");
+      
     })
     .then(()=>console.log("Success Table Users"))    
   }; 

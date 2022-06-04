@@ -1,9 +1,8 @@
 <template>
-    <v-app >
-        
-        <bar :administer='whoami.administer'></bar>
+    <v-app  v-if="whoami.administer">        
+        <bar></bar>
         <v-main class="mt-5">
-            <div v-if="whoami">               
+            <div>               
             </div>
             <v-card height="50px"
                 class="d-flex justify-end align-center rounded-xl elevation-10 mx-5"
@@ -274,7 +273,17 @@
                     </v-btn>   
                 </div>
             </v-card>
-        </v-dialog>
+        </v-dialog>        
+    </v-app>
+    <v-app  v-else>
+        <v-main class="d-flex justify-center align-center blue-grey darken-3">
+            <div class="d-flex justify-center">                
+                    <v-btn to="/home">
+                        voltar para a home 
+                    </v-btn>               
+            </div>        
+        </v-main>
+       
         
     </v-app>
 </template>

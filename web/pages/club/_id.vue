@@ -1,7 +1,9 @@
 <template>
     <v-app v-if="club">
-        <v-card 
-            class="mt-2" 
+        <bar></bar>
+        <v-main>
+            <v-card 
+            class="mx-3 mt-2" 
             color="blue-grey darken-3 white--text"
         >
             <v-row >
@@ -57,23 +59,26 @@
             v-model="descriptionText"
             width=500px
         >
-            <v-card width=500px >
-               
-                   <v-textarea
+            <v-card>
+               <v-card-text class="pt-8">
+                    <v-textarea
                     label=' Escreva algo sobre o grupo.'
-                    class="mx-5"
+                    hide-details                   
                     outlined
                     v-model="descriptionForm.text"
                 ></v-textarea>
-               
+               </v-card-text>
+               <v-card-actions>
+                   <v-spacer></v-spacer>
+                    <v-btn class="mx-2" @click="descriptionText = !descriptionText, descriptionForm.text=null" >Cancelar</v-btn>
+                    <v-btn class="mx-2" >Confirmar</v-btn>                
+               </v-card-actions>
                 
-                <div align="end">
-                    <v-btn class="ma-2" @click="descriptionText = !descriptionText, descriptionForm.text=null" >Cancelar</v-btn>
-                    <v-btn class="ma-2" >Confirmar</v-btn>
-                </div>
                 
             </v-card>
         </v-dialog>
+        </v-main>
+        
    {{club}}
    {{descriptionForm.text}}
     
@@ -81,7 +86,7 @@
 </template>
 <script>
    export default {
-       data(){
+        data(){
            return{
                club:null,
                descriptionText:false,
@@ -89,21 +94,25 @@
                    text:null
                }
            }
-       },
-       created(){
+        },
+        computed:{
+            whoami(){
+                return this.$store.state.Auth.user
+            },
+        },
+        created(){
            this.getClub()
-       },
-       methods:{
-           getClub(){
-               this.$store.dispatch('Club/get',this.$route.params.id)
-               .then( (data) => this.club = data)
-           },
-           subimitDescription(){
-               //criar beckend
-           }
-
-       }
-   }
+        },
+        methods:{
+            getClub(){
+                this.$store.dispatch('Club/get',this.$route.params.id)
+                .then( (data) => this.club = data)
+            },
+            subimitDescription(){
+                //criar beckend
+            }
+        }
+    }
     
     
 </script>

@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-navigation-drawer app v-if="drawer"
+        <v-navigation-drawer app v-model="drawer"
             color="blue-grey darken-3 white--text"
             img
             class=".d-flex"       
@@ -41,14 +41,18 @@
                     Meus Livros
                 </v-list-item>
                 <v-divider></v-divider>
-                <v-list-item class=" color white--text">
+                <v-list-item 
+                    v-if="whoami.administer"
+                    class=" color white--text"
+                    to="/adm"
+                >
                     <v-icon 
                         class="mr-2"
                         color="white"
                     >
                         mdi-cog
                     </v-icon>
-                    Configurações
+                  Funcionalidades de Administrador
                 </v-list-item>
                 <v-divider></v-divider>
                 <v-list-item 
@@ -94,7 +98,7 @@
     </v-container>
 </template>
 <script>
-export default {
+export default {    
     data(){
         return{
             drawer : false            
