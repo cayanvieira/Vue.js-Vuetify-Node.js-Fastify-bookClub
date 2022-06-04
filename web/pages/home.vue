@@ -18,16 +18,7 @@
                     <v-icon class="mr-2">mdi-plus</v-icon>
                     Criar novo clube do livro
                 </v-btn>
-                <v-divider vertical></v-divider>
-                <v-btn 
-                    class="mx-2" 
-                    elevation="0" 
-                    color='white'
-                    @click="registerBookDialog = !registerBookDialog"
-                >
-                    <v-icon class="mr-2">mdi-plus</v-icon>
-                    Cadastrar novo livro
-                </v-btn>                 
+                <v-divider vertical></v-divider>                               
             </v-card>
             <v-card class="mt-5 rounded-xl mx-5">
                 <v-card-title class="d-flex justify-center ">Últimos Clubes Criados</v-card-title>
@@ -364,18 +355,7 @@ export default {
             }else{
                 return this.alertLoginInClub = false
             }            
-        },
-        registerBook() {
-            const params = {
-                name:this.formBook.name,
-                edition:this.formBook.edition,
-                genre:this.formBook.genre,
-                author:this.formBook.author,
-                code:this.formBook.code
-            }
-            this.$store.dispatch("Book/register",params)
-            .then(()=> this.$router.go())           
-        },
+        },        
         fetchNewClubs() {
             this.$store.dispatch("Club/fetchNewClubs")
                 .then(data => this.clubs = data)

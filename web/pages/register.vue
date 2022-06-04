@@ -108,8 +108,8 @@
                             </v-row>
                         </v-form>                     
                     </v-col>                     
-                </v-card>   
-    {{form}}
+                </v-card>  
+    
             </v-container>
             <v-dialog 
                     v-model="alertRegister" 
