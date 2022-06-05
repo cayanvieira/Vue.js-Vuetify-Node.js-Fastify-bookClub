@@ -1,7 +1,7 @@
 exports.up = function(knex){
     return knex.schema.createTable('account', (table) => {
       
-      table.increments("user_id");
+      table.increments("id");
   
       table.string('name');    
       
@@ -18,7 +18,7 @@ exports.up = function(knex){
       table.boolean("administer");
       
     })
-    .then(()=>console.log("Success Table Users"))    
+    .then(()=>console.log("Success Table Account"))    
   }; 
   
   exports.down = function (knex) {

@@ -14,7 +14,7 @@ exports.up = function(knex){
       table.string("code")
 
     })
-    .then(()=>console.log("Success Table Users"))    
+    .then(()=>console.log("Success Table books"))    
   }; 
   
   exports.down = function (knex) {

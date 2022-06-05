@@ -15,6 +15,15 @@ export const actions = {
     })
     ).data
   }, 
+
+  async addFavoriteClub(_,{clubId,accountId}){
+    return await this.$axios.post('/account/add_favorite_club',
+      {
+        clubId:clubId,
+        accountId:accountId
+      }
+    ).data
+  }
 }
 
 export const mutations = {}

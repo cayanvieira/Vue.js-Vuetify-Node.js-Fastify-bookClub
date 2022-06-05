@@ -33,6 +33,23 @@ async function routes (fastify, options) {
       }  
     },  
   )
+
+  fastify.post(
+    "/account/add_favorite_club",
+    {},
+    async(request)=>{
+      const {clubId} = request.body
+      const {accountId} = request.body
+
+      fastify.knex("favorite_club")
+      .insert({
+        club_id:clubId,
+        account_id:accountId
+      })
+      .then(()=>console.log('add favorite'))
+    }
+  )
+
 }
   
   module.exports = routes

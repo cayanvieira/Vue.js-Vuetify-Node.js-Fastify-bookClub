@@ -110,9 +110,9 @@ export default {
         }
     },
     methods:{
-        logoff(){
-            window.localStorage.removeItem('user')            
-            this.$router.go("/")
+        async logoff(){                    
+            await this.$router.go("/")
+            window.localStorage.removeItem('user')
         }
     }
 }

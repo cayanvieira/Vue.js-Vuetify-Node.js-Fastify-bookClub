@@ -6,7 +6,8 @@ async function routes (fastify, options) {
     async(request,reply) => {
 
       const {name} = request.body      
-      const {owner} = request.body
+      const {owner_name} = request.body
+      const {owner_id} = request.body
       const {groupLimit} = request.body
       const {actualBook} = request.body
       const {password} = request.body
@@ -15,7 +16,8 @@ async function routes (fastify, options) {
       fastify.knex("club")
         .insert({
           name:name,              
-          owner:owner,
+          owner_name:owner_name,
+          owner_id:owner_id,
           group_limit:groupLimit,
           actual_book:actualBook,
           password:password
@@ -82,7 +84,28 @@ async function routes (fastify, options) {
       }
         
     },
-)
+  )
+
+  fastify.put(
+    '/club/create_description',
+    async(request,reply) =>{
+
+      const {description} = request.body
+      const {clubId} = request.body 
+
+      if(!description || !clubId){
+        return new Error("Dados Obrigatórios")
+      }
+      fastify.knex("club")
+        .select('description')
+        .where('id',clubId)   
+        .update({
+          description:description
+        })             
+      .then(()=>reply.send('Description Update'))
+      
+    },
+  )
 }
     
 module.exports = routes

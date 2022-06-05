@@ -57,7 +57,7 @@
                                 <v-col>
                                     <v-card-text class="py-1" color=" white--text">Livro Atual :  {{club.actual_book}}</v-card-text>                            
                                 
-                                    <v-card-text class="py-1" color=" white--text">Dono do Club : {{club.owner}}</v-card-text>
+                                    <v-card-text class="py-1" color=" white--text">Dono do Club : {{club.owner_name}}</v-card-text>
                                 
                                     <v-card-text class="py-1" color=" white--text">Limite de participantes : {{club.group_limit}}</v-card-text>
                                 
@@ -328,7 +328,8 @@ export default {
                 name:this.formClub.name,
                 actualBook:this.formClub.book,
                 groupLimit:this.formClub.groupLimit,
-                owner:this.whoami.name,
+                ownerName:this.whoami.name,
+                ownerId:this.whoami.id,
                 password:this.formClub.password
             }
             params.groupLimit=parseInt(params.groupLimit)
