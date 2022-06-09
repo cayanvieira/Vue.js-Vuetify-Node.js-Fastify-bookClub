@@ -21,6 +21,18 @@
             </div>            
             <v-list-item-group>                
                 <v-divider></v-divider>
+                <v-list-item 
+                    class=" color white--text"
+                    to="/"
+                >
+                    <v-icon 
+                        class="mr-2"
+                        color="white"
+                    >
+                        mdi-home
+                    </v-icon>
+                    Página Inicial
+                </v-list-item>
                 <v-list-item class=" color white--text">
                     <v-icon 
                         class="mr-2"
@@ -39,6 +51,16 @@
                         mdi-book-open-page-variant
                     </v-icon>
                     Meus Livros
+                </v-list-item>
+                <v-divider></v-divider>
+                <v-list-item :to="`/${whoami.id}`" class=" color white--text">
+                    <v-icon 
+                        class="mr-2"
+                        color="white"
+                    >
+                        mdi-account
+                    </v-icon>
+                    Dados Pessoais
                 </v-list-item>
                 <v-divider></v-divider>
                 <v-list-item 

@@ -37,8 +37,14 @@ export const actions = {
   },
 
   async fetchNewClubs() {
-    return (await this.$axios.get('/newclubs')
-    ).data
+    try {
+      return (await this.$axios.get('/newclubs'))
+        .data
+    } catch (error) {
+      console.log('Erro fetchNewClubs')
+      return {success:false,message:"Deu erro na Api"}
+    }
+    
   },
 
   description(_, { clubId, description }) {

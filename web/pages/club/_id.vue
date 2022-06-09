@@ -22,14 +22,25 @@
                         </v-card-subtitle>
                     </v-col>
                     <v-col cols="6" align='end'>
-                        <v-btn
-                            @click="addMyClubs()"         
+                        <v-btn 
+                            v-if="!favorited"
+                            @click="addMyFavoriteClubs()"                                     
                             class=" mr-3 rounded-xl"
                         >
                             <v-icon dark>
                                 mdi-plus
                             </v-icon>
-                            Adiconar a meus Clubes                       
+                            Adiconar a meus Clubes Favoritos                     
+                        </v-btn>
+                        <v-btn
+                            v-else 
+                            @click="removeFavoriteClub()"         
+                            class=" mr-3 rounded-xl"
+                        >
+                            <v-icon dark>
+                                mdi-close
+                            </v-icon>
+                            Retirar dos meus Clubes Favoritos                      
                         </v-btn>
                         <v-card-text                
                             color=" white--text"
@@ -83,10 +94,9 @@
                             <v-btn class="mx-2" @click="subimitDescription" >Confirmar</v-btn>                
                     </v-card-actions>   
                 </v-card>
-            </v-dialog>            
-        </v-main>   
-           {{club}}
-           {{whoami}}
+            </v-dialog>                           
+        </v-main>              
+           
     </v-app>
 </template>
 <script>
@@ -97,7 +107,8 @@
                descriptionCreate:false,
                descriptionForm:{
                    text:null
-               }
+               },
+               favorited:null
            }
         },
         computed:{
@@ -113,7 +124,8 @@
                     this.$router.push(`/`)
                 }else{
                     this.getClub()
-                }
+                    this.checkFavoriteClub()   
+                }   
             })
            
         },
@@ -125,12 +137,27 @@
             subimitDescription(){
                 const description=this.descriptionForm.text
                 const clubId = this.$route.params.id
-                this.$store.dispatch('Club/description',{description,clubId})                
+                this.$store.dispatch('Club/description',{description,clubId})
+                .then(()=>this.$router.go())                
             },
-            addMyClubs(){
+            addMyFavoriteClubs(){
                 const accountId= this.whoami.id
                 const clubId = this.$route.params.id
-                this.$store.dispatch('Account/addFavoriteClub',{accountId,clubId})  
+                this.$store.dispatch('Account/addFavoriteClub',{accountId,clubId}) 
+                .then(()=>this.$router.go())  
+            },
+            checkFavoriteClub(){
+                const accountId= this.whoami.id
+                const clubId = this.$route.params.id
+                this.$store.dispatch('Account/checkFavoriteClub',{accountId,clubId})
+                .then((response)=> this.favorited = response.data)
+                    
+            },
+            removeFavoriteClub(){
+                const accountId = this.whoami.id
+                const clubId = this.$route.params.id
+                this.$store.dispatch('Account/removeFavoriteClub',{accountId, clubId})
+                .then(()=>this.$router.go())                 
             }
 
         }

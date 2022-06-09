@@ -16,6 +16,22 @@ export const actions = {
     ).data
   }, 
 
+  update(_,{id,name,birthData,sex,email,uf}){
+    return  this.$axios.put(`/account/${id}/update`,{
+      name:name,
+      birthData:birthData,        
+      email:email,      
+      sex:sex,
+      uf:uf,   
+    })
+    .then(response => response.data)
+  },
+
+  get(_,id){
+    return  this.$axios.get(`/account/${id}/data`)
+    .then(response => response.data)
+  },
+
   async addFavoriteClub(_,{clubId,accountId}){
     return await this.$axios.post('/account/add_favorite_club',
       {
@@ -23,6 +39,14 @@ export const actions = {
         accountId:accountId
       }
     ).data
+  },
+
+  checkFavoriteClub(_,{clubId,accountId}){
+    return  this.$axios.get(`/account/${accountId}/favorited_club/${clubId}`)
+  },
+  
+  removeFavoriteClub(_,{clubId,accountId}){
+    return  this.$axios.delete(`/account/${accountId}/remove_favorited_club/${clubId}`).data
   }
 }
 

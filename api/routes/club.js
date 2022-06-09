@@ -30,7 +30,7 @@ async function routes (fastify, options) {
 
   fastify.get(
     "/club",
-    async(request,reply)=>{
+    async(reply)=>{
       fastify.knex("club")
         .select('*')                   
         .then(data=>reply.send(data))
@@ -71,10 +71,12 @@ async function routes (fastify, options) {
       
       const auth = await fastify.knex("club")
           .select("club.id")
-          .where({
+          .where(
+            {
               id:clubId,
               password: password
-          })
+            }
+          )
           .first()
       if(auth){
           reply.send(auth)
