@@ -1,6 +1,6 @@
 <template>    
     <v-app>
-        <bar></bar>
+        <bar :administer='whoami.administer'></bar>
         <v-main>            
             <div class="d-flex justify-center">
                 <v-card class="ma-5" v-if='dataAccount' width="500px">
@@ -21,13 +21,13 @@
                 <v-card-title>{{dataAccount.uf}}</v-card-title>
                  <v-card-subtitle>UF</v-card-subtitle>
                 <v-card-actions class="d-flex justify-center">
-                     <v-btn class="ma-5"
+                     <v-btn class="ma-2 m blue-grey darken-3 white--text rounded-xl"
                         @click="alterData = !alterData"
                     >
                         Alterar dados
                     </v-btn>
                      <v-btn 
-                            class="mx-2"
+                            class="ma-2 blue-grey darken-3 white--text rounded-xl "
                             @click="alertDelAccount = !alertDelAccount"
                         >
                             Excluir conta
@@ -93,14 +93,14 @@
                     <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn 
-                            class="mx-2"
+                            class="mx-2 blue-grey darken-3 white--text rounded-xl"
                             @click="alterData = !alterData"
                         >
                             Cancelar
                         </v-btn> 
                     
                         <v-btn 
-                            class="mx-2"
+                            class="mx-2 blue-grey darken-3 white--text rounded-xl"
                             @click="update()"
                         >
                             Alterar dados

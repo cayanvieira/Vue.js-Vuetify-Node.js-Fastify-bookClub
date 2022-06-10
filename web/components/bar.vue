@@ -109,8 +109,7 @@
         <v-app-bar app            
             color="blue-grey darken-3 white--text d-flex justify-start"
             elevation="10"               
-        >
-        
+        >                   
             <v-btn v-if="!drawer"
                 @click="drawer = !drawer"
                 color="blue-grey darken-3 white--text"
@@ -120,28 +119,43 @@
             >
                 <v-icon>mdi-menu</v-icon>
             </v-btn>
-            <v-app-bar-title class="mx-1">Clube do livro</v-app-bar-title>            
-            
+            <v-app-bar-title class="mx-1">Clube do livro</v-app-bar-title>
+            <v-select                
+                :items="typesSearch"
+                class="background-color white typeSelect ml-16"
+                rounded
+                v-model="choosedType"                
+                hide-details
+                outlined
+                filled 
+            ></v-select>
             <v-text-field
-                   
-                class="background-color white search shrink"
+                v-model="wordSearch"                   
+                class="background-color white search ml-16"
                 placeholder="Pesquise por um grupo, livro ou usuário"
                 rounded
                 outlined
                 hide-details
                 filled 
                 append-icon="mdi-magnify"
-                transition="none"
+                v-on:keyup.enter="search()"
             ></v-text-field>
-            
-        </v-app-bar>           
+            <v-spacer></v-spacer> 
+        </v-app-bar>
     </v-container>
 </template>
 <script>
 export default {    
     data(){
         return{
-            drawer : false            
+            drawer : false,
+            typesSearch:[
+                "Livros",
+                "Usuários",
+                "Clubes",
+            ],
+            choosedType:"Livros",
+            wordSearch:null
         }
     },
     computed:{
@@ -153,6 +167,10 @@ export default {
         async logoff(){                    
             await this.$router.go("/")
             window.localStorage.removeItem('user')
+        },
+        search(){
+            const word = this.wordSearch
+            this.$router.push(`/search/${word}`)
         }
     }
 }
@@ -160,5 +178,9 @@ export default {
 <style >
     .search{
       width: 400px;      
-    }    
+    }
+    .typeSelect{
+      width: 150px;
+      margin-left: 200px;      
+    }      
 </style>

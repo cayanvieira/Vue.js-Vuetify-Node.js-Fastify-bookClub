@@ -36,7 +36,8 @@
                                 label="Senha"
                                 outlined
                                 type="password"
-                                v-model="dataLogin.password"                                
+                                v-model="dataLogin.password"
+                                v-on:keyup.enter="login()"                                
                                 >                   
                                 </v-text-field>                            
                             </v-row>

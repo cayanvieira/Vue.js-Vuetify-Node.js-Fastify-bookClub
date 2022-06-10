@@ -213,20 +213,20 @@
                 <v-card-title class="justify-center">
                      {{detail.name.toUpperCase()}} 
                 </v-card-title>
-                <v-divider></v-divider>
+                <v-divider></v-divider>                
                 <v-text-field
                     type="password"
                     class="mt-5 mx-5 d-flex"                    
                     label="Digite a senha do Club"
                     outlined
-                    v-model="clubPassword"
+                    v-model="clubPassword"  
                 >                    
-                </v-text-field>
+                </v-text-field>                
                 <div class="justify-center"> 
                     <v-btn 
                         class="mb-3 mx-5 pa-0"
                         width="100px"
-                        @click="loginInClub()"
+                        @click="loginInClub()"                                                
                     >
                         Entrar
                     </v-btn>
