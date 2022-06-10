@@ -106,9 +106,9 @@
             </template>           
            
         </v-navigation-drawer >
-        <v-app-bar app
-            height="60px"
-            color="blue-grey darken-3 white--text"   
+        <v-app-bar app            
+            color="blue-grey darken-3 white--text d-flex justify-start"
+            elevation="10"               
         >
         
             <v-btn v-if="!drawer"
@@ -120,7 +120,20 @@
             >
                 <v-icon>mdi-menu</v-icon>
             </v-btn>
-            <v-app-bar-title class="mx-1">Clube do livro</v-app-bar-title>
+            <v-app-bar-title class="mx-1">Clube do livro</v-app-bar-title>            
+            
+            <v-text-field
+                   
+                class="background-color white search shrink"
+                placeholder="Pesquise por um grupo, livro ou usuário"
+                rounded
+                outlined
+                hide-details
+                filled 
+                append-icon="mdi-magnify"
+                transition="none"
+            ></v-text-field>
+            
         </v-app-bar>           
     </v-container>
 </template>
@@ -144,3 +157,8 @@ export default {
     }
 }
 </script>
+<style >
+    .search{
+      width: 400px;      
+    }    
+</style>
