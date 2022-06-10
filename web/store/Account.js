@@ -14,7 +14,11 @@ export const actions = {
       uf:uf,      
     })
     ).data
-  }, 
+  },
+  
+  del(_,id){
+    return  this.$axios.delete(`/account/${id}/delete`)
+  },
 
   update(_,{id,name,birthData,sex,email,uf}){
     return  this.$axios.put(`/account/${id}/update`,{

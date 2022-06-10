@@ -110,12 +110,17 @@
             height="60px"
             color="blue-grey darken-3 white--text"   
         >
+        
             <v-btn v-if="!drawer"
                 @click="drawer = !drawer"
-                color="cyan lighten-1 white--text"
+                color="blue-grey darken-3 white--text"
+                elevation="0" 
+                fab
+                small
             >
                 <v-icon>mdi-menu</v-icon>
-            </v-btn>                                
+            </v-btn>
+            <v-app-bar-title class="mx-1">Clube do livro</v-app-bar-title>
         </v-app-bar>           
     </v-container>
 </template>

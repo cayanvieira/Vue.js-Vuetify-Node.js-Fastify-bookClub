@@ -154,6 +154,31 @@ async function routes (fastify, options) {
       return favorite
     }
   )
+
+  fastify.delete(
+    '/account/:id/delete',
+    async(request)=>{
+
+      const {id}=request.params
+
+      
+      const del= fastify.knex('favorite_club')        
+        .where('account_id',id)
+        .del()
+        .then(()=>{
+         return fastify.knex('club')        
+            .where('owner_id',id)
+            .del()
+        })
+        .then(()=>{
+          return fastify.knex('account')
+            .where('id',id)
+            .del()
+        })
+      return del
+     
+    }
+  )
 }
   
   module.exports = routes

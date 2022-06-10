@@ -1,7 +1,7 @@
 <template>    
     <v-app>
         <bar></bar>
-        <v-main>
+        <v-main>            
             <div class="d-flex justify-center">
                 <v-card class="ma-5" v-if='dataAccount' width="500px">
                 <div class="d-flex justify-center blue-grey darken-3 white--text">
@@ -25,7 +25,13 @@
                         @click="alterData = !alterData"
                     >
                         Alterar dados
-                    </v-btn> 
+                    </v-btn>
+                     <v-btn 
+                            class="mx-2"
+                            @click="alertDelAccount = !alertDelAccount"
+                        >
+                            Excluir conta
+                        </v-btn> 
                 </v-card-actions>                               
             </v-card>
             </div>
@@ -98,7 +104,7 @@
                             @click="update()"
                         >
                             Alterar dados
-                        </v-btn>
+                        </v-btn>                       
                     </v-card-actions>
                     <v-dialog 
                         v-model="alertFormSuccess" 
@@ -156,6 +162,36 @@
                     </v-dialog>                                                            
                 </v-card>                
             </v-dialog>
+            <v-dialog 
+                v-model="alertDelAccount"
+                width="auto"  
+            >
+                <v-card> 
+                    <div>
+                        <v-card-title>
+                            Tem certeza que quer deletar a conta?
+                        </v-card-title>
+                    </div>
+                    <div class="d-flex justify-center">
+                        <v-card-actions>                      
+                            <v-spacer></v-spacer>
+                            <v-btn
+                                color="mx-5 blue-grey darken-3 white--text rounded-xl"  
+                                @click="alertDelAccount=false"
+                            >
+                                Cancelar
+                            </v-btn>                        
+                            <v-btn
+                                color=" mx-5 blue-grey darken-3 white--text rounded-xl"  
+                                @click="delAccount()"
+                            >
+                                Confirmar
+                            </v-btn>   
+                        </v-card-actions>
+                    </div> 
+                      
+                </v-card>
+            </v-dialog>
         </v-main>
     </v-app>
 </template>
@@ -183,7 +219,8 @@ export default {
                 v => /.+@.+/.test(v) || 'E-mail deve ser válido  ',
             ],
             alertFormSuccess :false,
-            alertEmptyBox:false
+            alertEmptyBox:false,
+            alertDelAccount:false
 
         }     
     },
@@ -222,6 +259,16 @@ export default {
                 this.alertEmptyBox = true
             }
 
+        },
+        delAccount(){
+            const id = this.whoami.id
+            this.$store.dispatch("Account/del",id)
+                .then(()=>{
+                    this.$router.push("/")
+                    window.localStorage.removeItem('user')
+                    
+                })
+                          
         },
         closeAlertSuccess(){
             this.$router.go()
