@@ -31,7 +31,11 @@
                     Meus Clubes
                 </v-list-item>
                 <v-divider></v-divider>
-                <v-list-item class=" color white--text">
+                <!-- Lembrar de mudar a url -->
+                <v-list-item
+                    class=" color white--text"   
+                    :to="`/account/${whoami.id}/mybooks`"
+                >
                     <v-icon 
                         class="mr-2"
                         color="white"
