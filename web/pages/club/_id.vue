@@ -64,7 +64,7 @@
                         </v-btn>
                         <v-btn 
                             class="rounded-xl ml-2"
-                            @click="updateDescriptionDialog = !updateDescriptionDialog"
+                            @click="del"
                         >
                             <v-icon class="mr-1">
                                 mdi-delete
