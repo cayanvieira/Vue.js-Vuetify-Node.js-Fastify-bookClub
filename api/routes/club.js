@@ -109,7 +109,7 @@ async function routes(fastify, options) {
     },
   )
 
-<<<<<<< HEAD
+
   fastify.delete(
     '/club/:id/delete_description',
     async(request,reply)=>{
@@ -122,7 +122,8 @@ async function routes(fastify, options) {
           description:null
         })
         .then((data)=>reply.send(data))
-
+    }
+  )
 
   fastify.put(
     '/club/:id/update_description',
@@ -146,4 +147,4 @@ async function routes(fastify, options) {
   )
 }
 
-module.exports = routes
+module.exports = routes;
