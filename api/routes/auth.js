@@ -9,7 +9,7 @@ async function routes(fastify, options) {
             const { password } = request.body
             
             const auth = await fastify.knex("account")
-                .select("user_id","name",'administer')
+                .select("id","name",'administer')
                 .where({
                     email: email,
                     password: password

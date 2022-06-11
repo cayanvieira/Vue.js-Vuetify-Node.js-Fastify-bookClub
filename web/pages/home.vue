@@ -57,7 +57,7 @@
                                 <v-col>
                                     <v-card-text class="py-1" color=" white--text">Livro Atual :  {{club.actual_book}}</v-card-text>                            
                                 
-                                    <v-card-text class="py-1" color=" white--text">Dono do Club : {{club.owner}}</v-card-text>
+                                    <v-card-text class="py-1" color=" white--text">Dono do Club : {{club.owner_name}}</v-card-text>
                                 
                                     <v-card-text class="py-1" color=" white--text">Limite de participantes : {{club.group_limit}}</v-card-text>
                                 
@@ -213,20 +213,20 @@
                 <v-card-title class="justify-center">
                      {{detail.name.toUpperCase()}} 
                 </v-card-title>
-                <v-divider></v-divider>
+                <v-divider></v-divider>                
                 <v-text-field
                     type="password"
                     class="mt-5 mx-5 d-flex"                    
                     label="Digite a senha do Club"
                     outlined
-                    v-model="clubPassword"
+                    v-model="clubPassword"  
                 >                    
-                </v-text-field>
+                </v-text-field>                
                 <div class="justify-center"> 
                     <v-btn 
                         class="mb-3 mx-5 pa-0"
                         width="100px"
-                        @click="loginInClub()"
+                        @click="loginInClub()"                                                
                     >
                         Entrar
                     </v-btn>
@@ -328,7 +328,8 @@ export default {
                 name:this.formClub.name,
                 actualBook:this.formClub.book,
                 groupLimit:this.formClub.groupLimit,
-                owner:this.whoami.name,
+                ownerName:this.whoami.name,
+                ownerId:this.whoami.id,
                 password:this.formClub.password
             }
             params.groupLimit=parseInt(params.groupLimit)

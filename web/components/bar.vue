@@ -21,6 +21,18 @@
             </div>            
             <v-list-item-group>                
                 <v-divider></v-divider>
+                <v-list-item 
+                    class=" color white--text"
+                    to="/"
+                >
+                    <v-icon 
+                        class="mr-2"
+                        color="white"
+                    >
+                        mdi-home
+                    </v-icon>
+                    Página Inicial
+                </v-list-item>
                 <v-list-item class=" color white--text">
                     <v-icon 
                         class="mr-2"
@@ -43,6 +55,16 @@
                         mdi-book-open-page-variant
                     </v-icon>
                     Meus Livros
+                </v-list-item>
+                <v-divider></v-divider>
+                <v-list-item :to="`/${whoami.id}`" class=" color white--text">
+                    <v-icon 
+                        class="mr-2"
+                        color="white"
+                    >
+                        mdi-account
+                    </v-icon>
+                    Dados Pessoais
                 </v-list-item>
                 <v-divider></v-divider>
                 <v-list-item 
@@ -88,24 +110,56 @@
             </template>           
            
         </v-navigation-drawer >
-        <v-app-bar app
-            height="60px"
-            color="blue-grey darken-3 white--text"   
-        >
+        <v-app-bar app            
+            color="blue-grey darken-3 white--text d-flex justify-start"
+            elevation="10"               
+        >                   
             <v-btn v-if="!drawer"
                 @click="drawer = !drawer"
-                color="cyan lighten-1 white--text"
+                color="blue-grey darken-3 white--text"
+                elevation="0" 
+                fab
+                small
             >
                 <v-icon>mdi-menu</v-icon>
-            </v-btn>                                
-        </v-app-bar>           
+            </v-btn>
+            <v-app-bar-title class="mx-1">Clube do livro</v-app-bar-title>
+            <v-select                
+                :items="typesSearch"
+                class="background-color white typeSelect ml-16"
+                rounded
+                v-model="choosedType"                
+                hide-details
+                outlined
+                filled 
+            ></v-select>
+            <v-text-field
+                v-model="wordSearch"                   
+                class="background-color white search ml-16"
+                placeholder="Pesquise por um grupo, livro ou usuário"
+                rounded
+                outlined
+                hide-details
+                filled 
+                append-icon="mdi-magnify"
+                v-on:keyup.enter="search()"
+            ></v-text-field>
+            <v-spacer></v-spacer> 
+        </v-app-bar>
     </v-container>
 </template>
 <script>
 export default {    
     data(){
         return{
-            drawer : false            
+            drawer : false,
+            typesSearch:[
+                "Livros",
+                "Usuários",
+                "Clubes",
+            ],
+            choosedType:"Livros",
+            wordSearch:null
         }
     },
     computed:{
@@ -114,10 +168,23 @@ export default {
         }
     },
     methods:{
-        logoff(){
-            window.localStorage.removeItem('user')            
-            this.$router.go("/")
+        async logoff(){                    
+            await this.$router.go("/")
+            window.localStorage.removeItem('user')
+        },
+        search(){
+            const word = this.wordSearch
+            this.$router.push(`/search/${word}`)
         }
     }
 }
 </script>
+<style >
+    .search{
+      width: 400px;      
+    }
+    .typeSelect{
+      width: 150px;
+      margin-left: 200px;      
+    }      
+</style>

@@ -7,18 +7,21 @@ exports.up = function(knex){
       
       table.string("actual_book");
 
-      table.string("owner");
+      table.string("owner_name");
      
+      table.integer("owner_id");
+      table.foreign('owner_id').references('account.id')
+
       table.string("password");
 
       table.integer("group_limit");
 
-      table.json("description")
+      table.string("description")
 
       table.string("meeting_date");
 
     })
-    .then(()=>console.log("Success Table Users"))    
+    .then(()=>console.log("Success Table Club"))    
   }; 
   
   exports.down = function (knex) {

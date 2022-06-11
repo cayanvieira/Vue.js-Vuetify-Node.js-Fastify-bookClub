@@ -4,5 +4,7 @@
     npm run dev
 // subir tabelas va na pasta api/database
     knex migrate:latest
-// descer tabelas va na pasta api/database
+// descer ultima tabela va na pasta api/database
+    knex migrate:down
+// descer Todas tabelas va na pasta api/database
     knex migrate:down
