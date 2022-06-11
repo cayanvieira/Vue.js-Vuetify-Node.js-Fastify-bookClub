@@ -22,8 +22,7 @@
                                 <v-text-field
                                     v-model="form.name"                               
                                     label="Nome Completo"                                    
-                                    hide-details="true"
-                                    required="true"                                    
+                                    hide-details="true"                                    
                                     class="mx-5 mt-2"
                                 ></v-text-field>
                             </v-row>
@@ -177,7 +176,7 @@
                     class="d-flex justify-center" 
                 >
                     <v-card-title>
-                        Campo "senha" ou "confirmar senha" vazio!
+                        Campo "senha" ou "confirmar senha" inválido!
                     </v-card-title>
                     <div class="d-flex align-center">
                         <v-btn
@@ -203,7 +202,7 @@
                     class="d-flex justify-center" 
                 >
                     <v-card-title>
-                        Campo "E-mail" vazio!
+                        Campo "E-mail" inválido!
                     </v-card-title>
                     <div class="d-flex align-center">
                         <v-btn
@@ -229,7 +228,7 @@
                     class="d-flex justify-center" 
                 >
                     <v-card-title>
-                        Campo "Nome" vazio!
+                        Campo "Nome" inválido!
                     </v-card-title>
                     <div class="d-flex align-center">
                         <v-btn
@@ -255,7 +254,7 @@
                     class="d-flex justify-center" 
                 >
                     <v-card-title>
-                        Campo "Data de Nascimento" vazio!
+                        Campo "Data de Nascimento" inválido!
                     </v-card-title>
                     <div class="d-flex align-center">
                         <v-btn
@@ -307,7 +306,7 @@
                     class="d-flex justify-center" 
                 >
                     <v-card-title>
-                        Campo "UF" vazio!
+                        Campo "UF" inválido!
                     </v-card-title>
                     <div class="d-flex align-center">
                         <v-btn
