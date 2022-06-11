@@ -108,6 +108,23 @@ async function routes (fastify, options) {
       
     },
   )
+
+  fastify.delete(
+    '/club/:id/delete_description',
+    async(request,reply)=>{
+      
+      const {id}=request.params
+      
+      fastify.knex('club')
+        .where('id',id)
+        .update({
+          description:null
+        })
+        .then((data)=>reply.send(data))
+
+
+    }
+  )
 }
     
 module.exports = routes
