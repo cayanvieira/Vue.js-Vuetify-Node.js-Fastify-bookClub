@@ -1,5 +1,5 @@
 // para ligar o servidor backend va na pasta api
-    nodemon server.js
+    npm run nodemon
 // para ligar o frontend va na pasta web
     npm run dev
 // subir tabelas va na pasta api/database
