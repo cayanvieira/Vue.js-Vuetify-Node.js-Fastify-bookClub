@@ -181,7 +181,7 @@ async function routes (fastify, options) {
     '/account/:id/myclubs',
     async(request,reply)=>{
       
-      const id =19 
+      const {id} =request.params
       const  myClubs = fastify.knex('club')
         .select('id','name','actual_book',"description")
         .where('owner_id',id)
