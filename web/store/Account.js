@@ -50,7 +50,12 @@ export const actions = {
   },
   
   removeFavoriteClub(_,{clubId,accountId}){
-    return  this.$axios.delete(`/account/${accountId}/remove_favorited_club/${clubId}`).data
+    return  this.$axios.delete(`/account/${accountId}/remove_favorited_club/${clubId}`)
+  },
+
+  fechMyClubs(accountId){
+    return  this.$axios.get(`/account/${accountId}/myclubs`)
+      .then(response => response.data)
   }
 }
 

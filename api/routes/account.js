@@ -113,12 +113,8 @@ async function routes (fastify, options) {
         .where('account_id', account_id)
         .where('club_id', club_id)
         .first()
-      console.log(favorite)
-      if(favorite.club_id){
-        return true
-      }else{
-        return false
-      }
+              
+      return favorite
     }
   )
 
@@ -186,6 +182,7 @@ async function routes (fastify, options) {
       
       const id =19 
       const  myClubs = fastify.knex('club')
+        .select('id','name','actual_book')
         .where('owner_id',id)
       
       return  myClubs
