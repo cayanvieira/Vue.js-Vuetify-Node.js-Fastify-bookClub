@@ -112,24 +112,24 @@ async function routes(fastify, options) {
 
   fastify.delete(
     '/club/:id/delete_description',
-    async(request,reply)=>{
-      
-      const {id}=request.params
-      
+    async (request, reply) => {
+
+      const { id } = request.params
+
       fastify.knex('club')
-        .where('id',id)
+        .where('id', id)
         .update({
-          description:null
+          description: null
         })
-        .then((data)=>reply.send(data))
+        .then((data) => reply.send(data))
     }
   )
 
   fastify.put(
     '/club/:id/update_description',
     async (request, reply) => {
-      const { description } = request.body
       const { id } = request.params
+      const { description } = request.body
 
       fastify.knex("club")
         .where('id', id)
@@ -145,6 +145,40 @@ async function routes(fastify, options) {
         })
     }
   )
+
+  fastify.put(
+    '/club/:id/update_book',
+    async (request, reply) => {
+      const {id} = request.params
+      const {new_book} = request.body
+
+      fastify.knex("club")
+      .where('id', id)
+      .update({
+        actual_book: new_book
+      })
+      .then(data => reply.send(data))
+    }
+  )
+  
+  fastify.put(
+    '/club/:id/update_password',
+    async(request, reply) => {
+      const {id} = request.params
+      const{password} = request.body
+      const{new_password} = request.body
+
+      
+      fastify.knex("club")
+      .where('id', id)
+      .where('password', password)
+      .update({
+        password:new_password
+      })
+      .then(data => reply.send(data))
+    }
+  )
+
 }
 
 module.exports = routes;
