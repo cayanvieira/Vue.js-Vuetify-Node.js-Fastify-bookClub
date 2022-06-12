@@ -60,7 +60,7 @@
                         >
                             <v-icon class="mr-1">
                                 mdi-pencil
-                            </v-icon> Alterar
+                            </v-icon> Atualizar
                         </v-btn>
                         <v-btn 
                             @click="deleteDescription()" 
