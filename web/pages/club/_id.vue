@@ -60,7 +60,7 @@
                         >
                             <v-icon class="mr-1">
                                 mdi-pencil
-                            </v-icon> Atualizar
+                            </v-icon> Alterar
                         </v-btn>
                         <v-btn 
                             @click="deleteDescription()" 
@@ -128,7 +128,7 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                            <v-btn class="mx-2" @click="updateDescription()">Atualizar</v-btn>
+                            <v-btn class="mx-2" @click="updateDescription()">Alterar</v-btn>
                             <v-btn class="mx-2" @click="updateDescriptionDialog = false">Cancelar</v-btn>
                     </v-card-actions>
                 </v-card>
