@@ -183,7 +183,7 @@ async function routes (fastify, options) {
       
       const id =19 
       const  myClubs = fastify.knex('club')
-        .select('id','name','actual_book')
+        .select('id','name','actual_book',"description")
         .where('owner_id',id)
       
       return  myClubs
