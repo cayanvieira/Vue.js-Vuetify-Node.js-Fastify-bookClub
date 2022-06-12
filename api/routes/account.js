@@ -179,6 +179,18 @@ async function routes (fastify, options) {
      
     }
   )
+
+  fastify.get(
+    '/account/:id/myclubs',
+    async(request,reply)=>{
+      
+      const id =19 
+      const  myClubs = fastify.knex('club')
+        .where('owner_id',id)
+      
+      return  myClubs
+    }
+  )
 }
   
   module.exports = routes

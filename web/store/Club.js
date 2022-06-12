@@ -64,8 +64,11 @@ export const actions = {
         description: description,
       }
     ).then(response => response.data)
-  }
+  },
 
+  deleteDescription(_,id){
+    return this.$axios.delete(`/club/${id}/delete_description`)
+  }
 }
 
 export const mutations = {}

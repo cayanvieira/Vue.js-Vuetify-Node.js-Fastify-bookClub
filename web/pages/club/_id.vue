@@ -63,12 +63,13 @@
                             </v-icon> Alterar
                         </v-btn>
                         <v-btn 
-                            class="rounded-xl ml-2"
-                            @click="del"
+                            @click="deleteDescription()" 
+                            class="ml-2 rounded-xl"
                         >
-                            <v-icon class="mr-1">
-                                mdi-delete
-                            </v-icon> Deletar
+                            <v-icon>
+                              mdi-delete 
+                            </v-icon>
+                            Deletar
                         </v-btn>
                     </v-card-title>            
                     <v-card-subtitle               
@@ -112,7 +113,10 @@
                     </v-card-actions>   
                 </v-card>
             </v-dialog>  
-            <v-dialog v-model="updateDescriptionDialog">
+            <v-dialog 
+                width=500px
+                v-model="updateDescriptionDialog"
+            >
                 <v-card>
                     <v-card-text class="pt-8" >
                         <v-textarea
@@ -128,7 +132,7 @@
                             <v-btn class="mx-2" @click="updateDescriptionDialog = false">Cancelar</v-btn>
                     </v-card-actions>
                 </v-card>
-            </v-dialog>                         
+            </v-dialog>                                   
         </v-main>     
   
     </v-app>
@@ -199,6 +203,11 @@
                 const clubId = this.$route.params.id
                 const description = this.descriptionForm.updateDescription
                 this.$store.dispatch('Club/updateDescription',{clubId, description})
+                .then(()=>this.$router.go())
+            },
+            deleteDescription(){
+                const clubId = this.$route.params.id
+                this.$store.dispatch('Club/deleteDescription',clubId)
                 .then(()=>this.$router.go())
             }
         }

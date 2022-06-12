@@ -33,7 +33,9 @@
                     </v-icon>
                     Página Inicial
                 </v-list-item>
-                <v-list-item class=" color white--text">
+                <v-list-item 
+                    :to="`/account/${whoami.id}/myclubs`"
+                    class=" color white--text">
                     <v-icon 
                         class="mr-2"
                         color="white"
@@ -138,12 +140,13 @@
                 class="background-color white search ml-16"
                 placeholder="Pesquise por um grupo, livro ou usuário"
                 rounded
-                outlined
+                
                 hide-details
                 filled 
                 append-icon="mdi-magnify"
                 v-on:keyup.enter="search()"
-            ></v-text-field>
+            >            
+            </v-text-field>
             <v-spacer></v-spacer> 
         </v-app-bar>
     </v-container>
