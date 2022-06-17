@@ -107,7 +107,7 @@
                             <td class="text-center">{{ item.actual_book }}</td>
                             <td class="d-flex justify-center align-center">
                                 <v-chip-group>
-                                    <v-chip color="blue-grey darken-3 white--text" small >Retirar dos Favoritos</v-chip>
+                                    <v-chip color="blue-grey darken-3 white--text" small @click="detail=item, removeFavoriteClub(detail.id)">Retirar dos Favoritos</v-chip>
                                 </v-chip-group>
                             </td>
                         </tr>
@@ -116,46 +116,46 @@
                 </template>                 
             </v-simple-table>            
             <v-dialog
-            v-if="detail" 
-            v-model="clubLoginDialog"
-            max-width="300px"            
-        >
-            <v-card
-                width="300px"                
+                v-if="detail" 
+                v-model="clubLoginDialog"
+                max-width="300px"            
             >
-                <v-card-subtitle class="d-flex justify-center pa-0">Entrar no Club</v-card-subtitle>
-                <v-divider></v-divider>
-                <v-card-title class="justify-center">
-                     {{detail.name.toUpperCase()}} 
-                </v-card-title>
-                <v-divider></v-divider>                
-                <v-text-field
-                    type="password"
-                    class="mt-5 mx-5 d-flex"                    
-                    label="Digite a senha do Club"
-                    outlined
-                    v-model="clubPassword"  
-                >                    
-                </v-text-field>                
-                <div class="justify-center"> 
-                    <v-btn 
-                        class="mb-3 mx-5 pa-0"
-                        width="100px"
-                        @click="loginInClub()"                                                
-                    >
-                        Entrar
-                    </v-btn>
-                    <v-btn 
-                        class="mb-3 mx-5 pa-0"
-                        width="100px"
-                        @click="clubLoginDialog = false"                    
-                    >
-                        Cancelar
-                    </v-btn>                    
-                </div>                
-            </v-card>
-        </v-dialog>
-        <v-dialog
+                <v-card
+                    width="300px"                
+                >
+                    <v-card-subtitle class="d-flex justify-center pa-0">Entrar no Club</v-card-subtitle>
+                    <v-divider></v-divider>
+                    <v-card-title class="justify-center">
+                        {{detail.name.toUpperCase()}} 
+                    </v-card-title>
+                    <v-divider></v-divider>                
+                    <v-text-field
+                        type="password"
+                        class="mt-5 mx-5 d-flex"                    
+                        label="Digite a senha do Club"
+                        outlined
+                        v-model="clubPassword"  
+                    >                    
+                    </v-text-field>                
+                    <div class="justify-center"> 
+                        <v-btn 
+                            class="mb-3 mx-5 pa-0"
+                            width="100px"
+                            @click="loginInClub()"                                                
+                        >
+                            Entrar
+                        </v-btn>
+                        <v-btn 
+                            class="mb-3 mx-5 pa-0"
+                            width="100px"
+                            @click="clubLoginDialog = false"                    
+                        >
+                            Cancelar
+                        </v-btn>                    
+                    </div>                
+                </v-card>
+            </v-dialog>
+            <v-dialog
                 v-model="updateDescriptionDialog"
                 width=500px
             >
@@ -179,7 +179,7 @@
                             <v-btn class="mx-2" @click="sendDescription(detail,descriptionForm.newDescription)">Confirmar</v-btn>                
                     </v-card-actions>   
                 </v-card>
-            </v-dialog> 
+            </v-dialog>             
         </v-main>    
     </v-app>
 </template>
@@ -203,9 +203,9 @@
 
         },
         computed:{
-            
-           
-       
+            whoami(){
+            return this.$store.state.Auth.user
+            },
         },
         created(){        
             this.$store.dispatch("Auth/sync")
@@ -259,6 +259,12 @@
                 
                 }
                 
+            },
+            removeFavoriteClub(club_id){
+                const accountId = this.whoami.id
+                const clubId = club_id
+                this.$store.dispatch('Account/removeFavoriteClub',{accountId, clubId})
+                .then(()=>this.$router.go())                 
             },
             
         } 

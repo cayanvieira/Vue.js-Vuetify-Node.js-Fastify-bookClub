@@ -176,8 +176,9 @@ export default {
             window.localStorage.removeItem('user')
         },
         search(){
+            const type =this.choosedType
             const word = this.wordSearch
-            this.$router.push(`/search/${word}`)
+            this.$router.push(`/search/${type}/${word}`)
         }
     }
 }
