@@ -149,35 +149,54 @@ async function routes(fastify, options) {
   fastify.put(
     '/club/:id/update_book',
     async (request, reply) => {
-      const {id} = request.params
-      const {new_book} = request.body
+      const { id } = request.params
+      const { new_book } = request.body
 
       fastify.knex("club")
-      .where('id', id)
-      .update({
-        actual_book: new_book
-      })
-      .then(data => reply.send(data))
+        .where('id', id)
+        .update({
+          actual_book: new_book
+        })
+        .then(data => reply.send(data))
     }
   )
-  
+
   fastify.put(
     '/club/:id/update_password',
-    async(request, reply) => {
-      const {id} = request.params
-      const{password} = request.body
-      const{new_password} = request.body
+    async (request, reply) => {
+      const { id } = request.params
+      const { password } = request.body
+      const { new_password } = request.body
 
-      
+
       fastify.knex("club")
-      .where('id', id)
-      .where('password', password)
-      .update({
-        password:new_password
-      })
-      .then(data => reply.send(data))
+        .where('id', id)
+        .where('password', password)
+        .update({
+          password: new_password
+        })
+        .then(data => reply.send(data))
     }
   )
+
+  //Deletar club 12/06/2022
+  fastify.delete(
+    '/club/:club_id/delete',
+    async (request, reply) => {
+      const { club_id } = request.params
+
+      fastify.knex("favorite_club")
+        .where('club_id', club_id)
+        .del()
+        .then(() => {
+          fastify.knex('club')
+          .where('id', club_id)
+          .del()
+          .then(data => reply.send(data))
+        })
+    }
+  )
+
 
 }
 
