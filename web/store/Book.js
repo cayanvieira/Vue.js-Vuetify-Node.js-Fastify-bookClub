@@ -14,6 +14,25 @@ export const actions = {
     })
     ).data
   },
+  get(_){
+    return this.$axios.get('/book')
+      .then(response => response.data)
+  },
+  delete(_,id){
+    return this.$axios.delete(`/book/${id}/delete`)
+      .then(response => response.data)
+  },
+  update(_,{id,name,edition,genre,author,code}){
+    this.$axios.put(`/book/${id}/update`,{
+      name : name,
+      edition: edition, 
+      genre:genre,
+      author : author,        
+      code : code
+    })
+      .then(response => response.data)    
+  }
+
 }
 
 export const mutations = {}

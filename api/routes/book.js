@@ -62,5 +62,18 @@ async function routes(fastify, options) {
                 .then(data => reply.send(data));
         }
     )
+    
+    fastify.get(
+        '/book',
+        async(request, reply) => {
+            const {id} = request.params
+
+            fastify.knex('books')
+                .select('*')
+                .then(data => reply.send(data));
+        }
+    )
+
+
 }
 module.exports = routes

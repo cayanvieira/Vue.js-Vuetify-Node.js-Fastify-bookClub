@@ -135,15 +135,15 @@
                 outlined
                 filled 
             ></v-select>
-            <v-text-field
+            <v-text-field                
                 v-model="wordSearch"                   
                 class="background-color white search ml-16"
                 placeholder="Pesquise por um clube, livro ou usuário"
-                rounded
-                
+                rounded                
                 hide-details
                 filled 
                 append-icon="mdi-magnify"
+                @click:append="search()"
                 v-on:keyup.enter="search()"
             >            
             </v-text-field>
