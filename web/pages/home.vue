@@ -231,7 +231,7 @@
         <v-dialog 
             v-model="alertLoginInClub"
             class="d-flex align-center"
-            width="600px" 
+            width="300px" 
             height="300px"
         >
             <v-card
@@ -254,7 +254,6 @@
                 </div>
             </v-card>
         </v-dialog>
-        
     </v-app>
 </template>
 <script>
@@ -342,7 +341,7 @@ export default {
             if (this.intoClub) {    
                 return this.$router.push(`/club/${this.detail.id}`)
             }else{
-                return this.alertLoginInClub = false
+                return this.alertLoginInClub = true
             }            
         },        
         fetchNewClubs() {
