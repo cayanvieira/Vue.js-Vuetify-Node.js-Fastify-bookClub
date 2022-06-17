@@ -18,6 +18,10 @@ export const actions = {
     return this.$axios.get('/book')
       .then(response => response.data)
   },
+  newBooks(_){
+    return this.$axios.get('/new_books')
+      .then(response => response.data)
+  },
   delete(_,id){
     return this.$axios.delete(`/book/${id}/delete`)
       .then(response => response.data)

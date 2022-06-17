@@ -8,6 +8,15 @@
             <v-card height="50px"
                 class="d-flex justify-end align-center rounded-xl elevation-10 mx-5"
             >
+                 <v-btn 
+                    class="mx-2" 
+                    elevation="0" 
+                    color='white' 
+                    to="/books"
+                >
+                    <v-icon class="mr-2">mdi-book-open-variant</v-icon>
+                    Livros
+                </v-btn>
                 <v-divider vertical></v-divider> 
                 <v-btn 
                     class="mx-2" 

@@ -74,6 +74,16 @@ async function routes(fastify, options) {
         }
     )
 
+    fastify.get(
+        "/new_books",
+        async (request, reply) => {
+    
+          fastify.knex("books")
+            .select('*')
+            .orderBy('id', 'desc')
+            .then(data => reply.send(data.slice(0,8)))
+        }
+      )
 
 }
 module.exports = routes

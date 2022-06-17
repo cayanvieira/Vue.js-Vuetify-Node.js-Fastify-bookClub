@@ -57,7 +57,7 @@ async function routes(fastify, options) {
       fastify.knex("club")
         .select('*')
         .orderBy('id', 'desc')
-        .then(data => reply.send(data.slice(0, 5)))
+        .then(data => reply.send(data.slice(0, 10)))
     }
   )
 
