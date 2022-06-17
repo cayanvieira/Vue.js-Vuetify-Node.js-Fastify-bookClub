@@ -55,7 +55,10 @@
                                         small
                                     >Alterar descrição</v-chip>
                                     <v-chip color="blue-grey darken-3 white--text" small>Alterar Senha</v-chip>
-                                    <v-chip color="blue-grey darken-3 white--text" small>Excluir Clube</v-chip>
+                                    <v-chip                    
+                                        color="blue-grey darken-3 white--text" 
+                                        small
+                                        >Excluir Clube</v-chip>
                                 </v-chip-group>
                             </td>
                         </tr>
@@ -265,8 +268,7 @@
                 const clubId = club_id
                 this.$store.dispatch('Account/removeFavoriteClub',{accountId, clubId})
                 .then(()=>this.$router.go())                 
-            },
-            
+            }
         } 
     } 
 </script>
