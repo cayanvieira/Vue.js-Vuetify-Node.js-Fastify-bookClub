@@ -85,7 +85,7 @@
                                 mdi-plus
                             </v-icon>
                             <v-list-item-content>
-                                <v-list-item-title>Criar descrição para o Grupo</v-list-item-title>
+                                <v-list-item-title>Criar descrição para o Clube</v-list-item-title>
                             </v-list-item-content>                     
                             
                         </v-list-item>
@@ -100,7 +100,7 @@
                 <v-card>
                     <v-card-text class="pt-8">
                             <v-textarea
-                                label=' Escreva algo sobre o grupo.'
+                                label=' Escreva algo sobre o clube.'
                                 hide-details                   
                                 outlined
                                 v-model="descriptionForm.newDescription"

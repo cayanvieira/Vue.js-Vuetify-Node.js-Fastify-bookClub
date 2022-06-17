@@ -55,7 +55,7 @@
                                         small
                                     >Alterar descrição</v-chip>
                                     <v-chip color="blue-grey darken-3 white--text" small>Alterar Senha</v-chip>
-                                    <v-chip color="blue-grey darken-3 white--text" small>Excluir Grupo</v-chip>
+                                    <v-chip color="blue-grey darken-3 white--text" small>Excluir Clube</v-chip>
                                 </v-chip-group>
                             </td>
                         </tr>
@@ -162,7 +162,7 @@
                 <v-card>
                     <v-card-text class="pt-8">
                             <v-textarea
-                                label=' Escreva algo sobre o grupo.'
+                                label=' Escreva algo sobre o Clube.'
                                 hide-details                   
                                 outlined
                                 v-model="descriptionForm.newDescription"

@@ -138,7 +138,7 @@
             <v-text-field
                 v-model="wordSearch"                   
                 class="background-color white search ml-16"
-                placeholder="Pesquise por um grupo, livro ou usuário"
+                placeholder="Pesquise por um clube, livro ou usuário"
                 rounded
                 
                 hide-details

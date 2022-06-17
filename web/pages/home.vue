@@ -31,25 +31,13 @@
                         :key="k"                        
                     >
                        <v-card
-                         
+                            @click="detail = club, clubLoginDialog = !clubLoginDialog"
                             width="250px"
                             class="mx-3 my-3 rounded-xl " 
                             color="blue-grey darken-3 white--text"
-                            elevation="10"                            
-                           
+                            elevation="16"  
                         >
-                            <v-card-title  class="ma-auto overflow-auto py-1"> {{club.name}}
-                                <v-spacer></v-spacer>
-                                <v-btn 
-                                    small
-                                    elevation="0"
-                                    fab
-                                    @click="detail = club, clubLoginDialog = !clubLoginDialog"
-                                >
-                                <v-icon>
-                                    mdi-arrow-right
-                                </v-icon>
-                            </v-btn>
+                            <v-card-title  class="ma-auto overflow-auto py-1"> {{club.name}}                               
                             </v-card-title>
                             
                             <v-divider color="white"></v-divider>
