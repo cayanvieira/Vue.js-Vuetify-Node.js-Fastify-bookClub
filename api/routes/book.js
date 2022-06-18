@@ -10,7 +10,7 @@ async function routes(fastify, options) {
             const {author} = request.body
             const {code} = request.body
             
-            fastify.knex("books")
+            fastify.knex("book")
                 .insert({
                     name:name,
                     edition: edition,        
@@ -33,7 +33,7 @@ async function routes(fastify, options) {
             const {genre} = request.body
             const {author} = request.body
             const {code} = request.body
-            fastify.knex("books")
+            fastify.knex("book")
                 .where('id', id)
                 .update({
                     name: name,
@@ -56,7 +56,7 @@ async function routes(fastify, options) {
         async(request, reply) => {
             const {id} = request.params
 
-            fastify.knex('books')
+            fastify.knex("book")
                 .where('id', id)
                 .del()
                 .then(data => reply.send(data));
@@ -68,7 +68,7 @@ async function routes(fastify, options) {
         async(request, reply) => {
             const {id} = request.params
 
-            fastify.knex('books')
+            fastify.knex("book")
                 .select('*')
                 .then(data => reply.send(data));
         }
@@ -78,7 +78,7 @@ async function routes(fastify, options) {
         "/new_books",
         async (request, reply) => {
     
-          fastify.knex("books")
+          fastify.knex("book")
             .select('*')
             .orderBy('id', 'desc')
             .then(data => reply.send(data.slice(0,8)))

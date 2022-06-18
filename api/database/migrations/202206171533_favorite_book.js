@@ -4,7 +4,7 @@ exports.up = function(knex){
         table.increments('id');
 
         table.integer('book_id').notNullable()
-        table.foreign('book_id').references('books.id')
+        table.foreign('book_id').references('book.id')
 
         table.integer('account_id').notNullable()
         table.foreign('account_id').references('account.id')

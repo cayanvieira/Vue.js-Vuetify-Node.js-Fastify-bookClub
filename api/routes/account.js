@@ -245,9 +245,9 @@ async function routes(fastify, options) {
       const { id } = request.params
 
       fastify.knex('favorite_book')
-        .select('books.id', 'books.name')
+        .select('book.id', 'book.name')
         .where('account_id', id)
-        .join('books', 'books.id', 'favorite_book.book_id')
+        .join('book', 'book.id', 'favorite_book.book_id')
         .then(data => reply.send(data))
     }
   )

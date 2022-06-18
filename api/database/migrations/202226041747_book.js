@@ -1,5 +1,5 @@
 exports.up = function(knex){
-    return knex.schema.createTable('books', (table) => {
+    return knex.schema.createTable('book', (table) => {
       
       table.increments("id");
   
@@ -14,9 +14,9 @@ exports.up = function(knex){
       table.string("code")
 
     })
-    .then(()=>console.log("Success Table books"))    
+    .then(()=>console.log("Success Table book"))    
   }; 
   
   exports.down = function (knex) {
-    return knex.schema.dropTable('books')
+    return knex.schema.dropTable('book')
   };

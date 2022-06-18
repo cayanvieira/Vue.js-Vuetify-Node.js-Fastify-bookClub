@@ -8,7 +8,7 @@ async function routes(fastify,options){
           let {type}=request.params
     
           if(type === "Livros"){
-            const result = fastify.knex('books')
+            const result = fastify.knex("book")
             .select('name')        
             .where('name', word) 
             return result

@@ -67,7 +67,7 @@
             </v-card>   
         </v-main>
         <v-dialog v-model="createClubDialog" max-width="1000px">
-            <v-card>
+            <v-card>                
                 <v-card-title>
                     Criar Clube do Livro
                 </v-card-title>
@@ -77,11 +77,15 @@
                     label="Nome do Clube"
                     v-model="formClub.name"
                 ></v-text-field>
-                <v-text-field 
-                    class="mt-5 mx-6" 
-                    label="Livro a ser lido pelo clube"
+                <v-select
+                    class="mt-0 mx-6" 
                     v-model="formClub.book"
-                ></v-text-field>
+                    :items="books"
+                    item-text="name"
+                    item-value="id"
+                    hide-details
+                    label="Livro a ser lido pelo clube"
+                ></v-select>                
                 <v-text-field 
                     class="mt-5 mx-6" 
                     label="Limite de membros"
@@ -259,8 +263,8 @@ export default {
             },            
             clubs:[],
             intoClub:false,
-            alertLoginInClub :false,
-            drawer : false 
+            alertLoginInClub :false,            
+            books:[] 
         }
     },
     computed:{
@@ -276,6 +280,7 @@ export default {
                     this.$router.push(`/`)
                 }else{
                     this.fetchNewClubs()
+                    this.getBooks()
                 }
             })
     },    
@@ -317,6 +322,10 @@ export default {
         fetchNewClubs() {
             this.$store.dispatch("Club/fetchNewClubs")
                 .then(data => this.clubs = data)
+        },
+        getBooks(){
+            this.$store.dispatch('Book/get')
+                .then((data)=> this.books=data )  
         },             
     }
 }
