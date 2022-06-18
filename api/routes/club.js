@@ -13,13 +13,13 @@ async function routes(fastify, options) {
       const { password } = request.body
 
 
-      fastify.knex("club")
+      fastify.knex("club")        
         .insert({
           name: name,
           owner_name: owner_name,
           owner_id: owner_id,
           group_limit: groupLimit,
-          actual_book: actualBook,
+          actual_book_id: actualBook,
           password: password
         })
         .then(
@@ -56,7 +56,7 @@ async function routes(fastify, options) {
 
       fastify.knex("club")
         .select('*')
-        .orderBy('id', 'desc')
+        .orderBy('id', 'desc')        
         .then(data => reply.send(data.slice(0, 10)))
     }
   )
@@ -155,7 +155,7 @@ async function routes(fastify, options) {
       fastify.knex("club")
         .where('id', id)
         .update({
-          actual_book: new_book
+          actual_book_id: new_book
         })
         .then(data => reply.send(data))
     }

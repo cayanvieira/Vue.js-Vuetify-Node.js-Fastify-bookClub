@@ -145,7 +145,7 @@ async function routes(fastify, options) {
       const { account_id } = request.params
 
       const favorite = fastify.knex("favorite_club")
-        .select("club.id", "club.name", 'club.actual_book')
+        .select("club.id", "club.name", 'club.actual_book_id')
         .where('account_id', account_id)
         .join('club', "club.id", 'favorite_club.club_id')
 
@@ -185,7 +185,7 @@ async function routes(fastify, options) {
 
       const { id } = request.params
       const myClubs = fastify.knex('club')
-        .select('id', 'name', 'actual_book', "description")
+        .select('id', 'name', 'actual_book_id', "description")
         .where('owner_id', id)
 
       return myClubs

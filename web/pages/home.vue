@@ -2,9 +2,7 @@
     <v-app >
         
         <bar :administer='whoami.administer'></bar>
-        <v-main class="mt-5">
-            <div v-if="whoami">               
-            </div>
+        <v-main class="mt-5">          
             <v-card height="50px"
                 class="d-flex justify-end align-center rounded-xl elevation-10 mx-5"
             >
@@ -52,7 +50,7 @@
                             <v-divider color="white"></v-divider>
                             <v-row>
                                 <v-col>
-                                    <v-card-text class="py-1" color=" white--text">Livro Atual :  {{club.actual_book}}</v-card-text>                            
+                                    <v-card-text class="py-1" color=" white--text">Livro Atual :  {{club.actual_book_id}}</v-card-text>                            
                                 
                                     <v-card-text class="py-1" color=" white--text">Dono do Club : {{club.owner_name}}</v-card-text>
                                 

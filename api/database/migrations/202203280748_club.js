@@ -6,8 +6,8 @@ exports.up = function(knex){
       table.string('name');    
       
      
-      table.integer("actual_book");
-      table.foreign("actual_book").references('book.id')
+      table.integer("actual_book_id");
+      table.foreign("actual_book_id").references('book.id')
 
       table.string("owner_name");
      

@@ -18,7 +18,7 @@
                             class="pa-0 ma-2 ml-3 mt-1"  
                             color=" white--text"
                         >
-                            {{club.actual_book}}
+                            {{club.actual_book_id}}
                         </v-card-subtitle>
                     </v-col>
                     <v-col cols="6" align='end'>
