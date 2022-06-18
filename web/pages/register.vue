@@ -26,7 +26,6 @@
                                     class="mx-5 mt-2"
                                 ></v-text-field>
                             </v-row>
-
                             <v-row>
                                 <v-text-field
                                     v-model="form.birthData"                               
@@ -36,15 +35,36 @@
                                     v-mask="'##/##/####'"
                                 ></v-text-field>
                             </v-row>
-
-                            <v-row>
-                                <v-text-field
-                                    v-model="form.sex"                               
-                                    label="Sexo"                                    
+                            <v-radio-group
+                                v-model="form.sex"
+                                row
+                                >
+                                <v-radio
+                                    
+                                    class="mx-5 mt-5"
+                                    label="Feminino"
+                                    value="feminino.sex"
+                                    hide-details="true"
+                                    required="true"
+                                                                        
+                                ></v-radio>
+                                <v-radio
+                                
+                                    class="mx-5 mt-5"
+                                    label="Masculino"
+                                    value="masculino.sex"
                                     hide-details="true"
                                     required="true"                                    
-                                    class="mx-5 mt-2"
-                                ></v-text-field>
+                                ></v-radio>
+                                <v-radio
+                                    
+                                    class="mx-5 mt-5"
+                                    label="Outros"
+                                    value="outros.sex"
+                                    hide-details="true"
+                                    required="true"                                    
+                                ></v-radio>
+                            </v-radio-group>  
                             </v-row>
                             
 
@@ -53,26 +73,29 @@
                                     v-model="form.email"
                                     label="E-mail"                                    
                                     hide-details="true"
-                                    class="mx-5 mt-2"
-                                ></v-text-field>
+                                    class="mx-5 mt-3"
+                                    v-mask="'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-. ]+$'"
+                                ></v-text-field>                               
                             </v-row>   
 
                             <v-row>
-                                <v-text-field
-                                    v-model="form.uf"                               
-                                    label="UF"                                    
-                                    hide-details="true"
-                                    required="true"                                    
-                                    class="mx-5 mt-2"
-                                ></v-text-field>
+                                <v-col>
+                                    <v-select
+                                    v-model="form.uf"                                   
+                                    :items="items"
+                                    item-text="uf"
+                                    label="UF"
+                                    class="mx-2 mt-1"
+                                    ></v-select>
+                                </v-col>                        
                             </v-row>
-
+                            
                              <v-row>
                                 <v-text-field
                                     v-model="form.password"                                    
                                     label="Senha"                                    
                                     hide-details="true"
-                                    class="mx-5 mt-2"
+                                    class="mx-5 mt-0"
                                     type="password"                                    
                                 ></v-text-field>
                             </v-row>
@@ -325,67 +348,120 @@
 </template>
 
 <script>
-export default {    
-    data(){
-        return{
-            form:{
-                name:null,
-                birthData:null,               
-                email:null,
-                password:null,
-                checkPassword:null,
-                sex:null,
-                uf:null
-              
-            },
-            alertPassword:false,
-            alertRegister:false ,
-            alertNullPassword:false,
-            alertNullEmail:false,
-            alertNullName:false,
-            alertNullBirthData:false,
-            alertNullSex:false,
-            alertNullUF:false                    
-        }       
-    },    
+export default {
+  data() {
+    return {
+      items: [
+        { uf: "Acre" },
+        { uf: "Alagoas" },
+        { uf: "Amapá" },
+        { uf: "Amazonas" },
+        { uf: "Bahia" },
+        { uf: "Ceará" },
+        { uf: "Distrito Federal" },
+        { uf: "Espírito Santo" },
+        { uf: "Goiás" },
+        { uf: "Maranhão" },
+        { uf: "Mato Grosso" },
+        { uf: "Mato Grosso do Sul" },
+        { uf: "Minas Gerais" },
+        { uf: "Pará" },
+        { uf: "Paraíba" },
+        { uf: "Peraná" },
+        { uf: "Pernambuco" },
+        { uf: "Piauí" },
+        { uf: "Rio de janeiro" },
+        { uf: "Rio Grande do Norte" },
+        { uf: "Rio Grande do Sul" },
+        { uf: "Rondônia" },
+        { uf: "Roraima" },
+        { uf: "Santa Catarina" },
+        { uf: "São Paulo" },
+        { uf: "Sergipe" },
+        { uf: "Tocantins" },
+      ],
+
+      data: () => ({
+      activePicker: null,
+      date: null,
+      menu: false,
+    }),
+    watch: {
+      menu (val) {
+        val && setTimeout(() => (this.activePicker = 'YEAR'))
+      },
+    },
     methods: {
-        subimit(){
-            if( this.form.name !=null && this.form.name !=='' && this.form.birthData!=null && this.form.birthData !=='' && this.form.sex!=null && this.form.sex !=='' && this.form.email!=null && this.form.email !=='' && this.form.uf!=null && this.form.uf !=='' && this.form.password == this.form.checkPassword && this.form.password !=null) {           
-                const params ={
-                    name:this.form.name,
-                    birthData:this.form.birthData,
-                    sex:this.form.sex,        
-                    email:this.form.email,
-                    uf:this.form.uf,
-                    password:this.form.password
-                }
-                this.$store.dispatch("Account/register",params)
-                this.alertRegister = true   
-            }
-            else if (this.form.name === null || this.form.name ===''){
-                return this.alertNullName = true
-            }
-            else if (this.form.birthData === null  || this.form.birthData ===''){
-                return this.alertNullBirthData = true
-            }
-             else if (this.form.sex === null || this.form.sex ===''){
-                return this.alertNullSex = true
-            }
-            else if (this.form.email === null || this.form.email ===''){
-                return this.alertNullEmail = true
-            }
-            else if (this.form.uf === null || this.form.uf===''){
-                return this.alertNullUF = true
-            }
-            else if (this.form.password === null || this.form.checkPassword  === null){
-                return this.alertNullPassword = true
-            }
-            else{
-                return this.alertPassword = true
-            }         
-        },
-        
-    }
-}
+      save (date) {
+        this.$refs.menu.save(date)
+      },
+    },
+      
+      form: {
+        name: null,
+        birthData: null,
+        email: null,
+        password: null,
+        checkPassword: null,
+        sex: null,
+        uf: null,
+      },
+      alertPassword: false,
+      alertRegister: false,
+      alertNullPassword: false,
+      alertNullEmail: false,
+      alertNullName: false,
+      alertNullBirthData: false,
+      alertNullSex: false,
+      alertNullUF: false,
+    };
+  },
+  methods: {
+    subimit() {
+      if (
+        this.form.name != null &&
+        this.form.name !== "" &&
+        this.form.birthData != null &&
+        this.form.birthData !== "" &&
+        this.form.sex != null &&
+        this.form.sex !== "" &&
+        this.form.email != null &&
+        this.form.email !== "" &&
+        this.form.uf != null &&
+        this.form.uf !== "" &&
+        this.form.password == this.form.checkPassword &&
+        this.form.password != null
+      ) {
+        const params = {
+          name: this.form.name,
+          birthData: this.form.birthData,
+          sex: this.form.sex,
+          email: this.form.email,
+          uf: this.form.uf,
+          password: this.form.password,
+        };
+        this.$store.dispatch("Account/register", params);
+        this.alertRegister = true;
+      } else if (this.form.name === null || this.form.name === "") {
+        return (this.alertNullName = true);
+      } else if (this.form.birthData === null || this.form.birthData === "") {
+        return (this.alertNullBirthData = true);
+      } else if (this.form.sex === null || this.form.sex === "") {
+        return (this.alertNullSex = true);
+      } else if (this.form.email === null || this.form.email === "") {
+        return (this.alertNullEmail = true);
+      } else if (this.form.uf === null || this.form.uf === "") {
+        return (this.alertNullUF = true);
+      } else if (
+        this.form.password === null ||
+        this.form.checkPassword === null
+      ) {
+        return (this.alertNullPassword = true);
+      } else {
+        return (this.alertPassword = true);
+      }
+    },
+  },
+};
 </script>
 

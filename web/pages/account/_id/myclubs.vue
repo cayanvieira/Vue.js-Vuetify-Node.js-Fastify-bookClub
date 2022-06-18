@@ -52,6 +52,7 @@
                                         @click="updateDescriptionDialog=!updateDescriptionDialog,detail=item"
                                         color="blue-grey darken-3 white--text" 
                                         small
+
                                     >
                                         Alterar descrição
                                     </v-chip>
@@ -69,6 +70,14 @@
                                     >
                                         Excluir Clube
                                     </v-chip>
+
+                                    <v-chip>Alterar descrição</v-chip>
+                                    <v-chip color="blue-grey darken-3 white--text" small>Alterar Senha</v-chip>
+                                    <v-chip                    
+                                        color="blue-grey darken-3 white--text" 
+                                        small
+                                        >Excluir Clube</v-chip>
+
                                 </v-chip-group>
                             </td>
                         </tr>
@@ -355,6 +364,7 @@
                 const clubId = club_id
                 this.$store.dispatch('Account/removeFavoriteClub',{accountId, clubId})
                 .then(()=>this.$router.go())                 
+
             },
             deleteClub(club_id){
                 this.$store.dispatch("Club/deleteClub",club_id)
@@ -369,6 +379,8 @@
                     this.$store.dispatch("Club/updatePassword", {id,newPassword,oldPassword})
                     .then(()=> this.updatePasswordDialogSuccess=true)
                 }
+
+
             }
         } 
     } 
