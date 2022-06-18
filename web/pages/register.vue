@@ -23,7 +23,7 @@
                                     v-model="form.name"                               
                                     label="Nome Completo"                                    
                                     hide-details="true"                                    
-                                    class="mx-5 mt-2"
+                                    class="mx-5 mt-0"
                                 ></v-text-field>
                             </v-row>
                             <v-row>
@@ -31,49 +31,49 @@
                                     v-model="form.birthData"                               
                                     label="Data de Nascimento"                                    
                                     hide-details="true"
-                                    class="mx-5 mt-2"
+                                    class="mx-5 mt-0"
                                     v-mask="'##/##/####'"
                                 ></v-text-field>
                             </v-row>
-                            <v-radio-group
-                                v-model="form.sex"
-                                row
+                            <v-row>
+                                <v-radio-group
+                                    v-model="form.sex"
+                                    hide-details
+                                    row
                                 >
-                                <v-radio
+                                    <v-radio
+                                        
+                                        class="mx-5 mt-0"
+                                        label="Feminino"
+                                        value="feminino.sex"
+                                        hide-details="true"
+                                        required="true"
+                                                                            
+                                    ></v-radio>
+                                    <v-radio
                                     
-                                    class="mx-5 mt-5"
-                                    label="Feminino"
-                                    value="feminino.sex"
-                                    hide-details="true"
-                                    required="true"
-                                                                        
-                                ></v-radio>
-                                <v-radio
-                                
-                                    class="mx-5 mt-5"
-                                    label="Masculino"
-                                    value="masculino.sex"
-                                    hide-details="true"
-                                    required="true"                                    
-                                ></v-radio>
-                                <v-radio
-                                    
-                                    class="mx-5 mt-5"
-                                    label="Outros"
-                                    value="outros.sex"
-                                    hide-details="true"
-                                    required="true"                                    
-                                ></v-radio>
-                            </v-radio-group>  
+                                        class="mx-5 mt-0"
+                                        label="Masculino"
+                                        value="masculino.sex"
+                                        hide-details="true"
+                                        required="true"                                    
+                                    ></v-radio>
+                                    <v-radio
+                                        
+                                        class="mx-5 mt-0"
+                                        label="Outros"
+                                        value="outros.sex"
+                                        hide-details="true"
+                                        required="true"                                    
+                                    ></v-radio>
+                                </v-radio-group>  
                             </v-row>
-                            
-
                             <v-row>
                                 <v-text-field
                                     v-model="form.email"
                                     label="E-mail"                                    
                                     hide-details="true"
-                                    class="mx-5 mt-3"
+                                    class="mx-5 mt-0"
                                     v-mask="'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-. ]+$'"
                                 ></v-text-field>                               
                             </v-row>   
@@ -85,7 +85,8 @@
                                     :items="items"
                                     item-text="uf"
                                     label="UF"
-                                    class="mx-2 mt-1"
+                                    class="mx-2 mt-0"
+                                    hide-details
                                     ></v-select>
                                 </v-col>                        
                             </v-row>
@@ -105,7 +106,7 @@
                                     v-model="form.checkPassword"                                     
                                     label="Confirmar Senha"                                    
                                     hide-details="true"
-                                    class="mx-5 mt-2"
+                                    class="mx-5 mt-0"
                                     type="password"
                                 ></v-text-field>
                             </v-row>

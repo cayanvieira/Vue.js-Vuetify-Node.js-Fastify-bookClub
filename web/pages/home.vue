@@ -27,7 +27,7 @@
                     <v-icon class="mr-2">mdi-plus</v-icon>
                     Criar novo clube do livro
                 </v-btn>
-                <v-divider vertical></v-divider>                               
+                                            
             </v-card>
             <v-card class="mt-5 rounded-xl mx-5">
                 <v-card-title class="d-flex justify-center ">Últimos Clubes Criados</v-card-title>
@@ -157,46 +157,7 @@
                     </div>
                 </v-card>
             </v-dialog>
-        </v-dialog>
-        <v-dialog v-model="registerBookDialog" 
-                max-width="1000px"
-            >
-            <v-card>
-                <v-card-title>
-                    Registrar novo Livro
-                </v-card-title>
-                <v-divider color="black" class="mx-6"></v-divider>
-                <v-text-field 
-                    class="mt-5 mx-6" 
-                    label="Título do Livro"
-                    v-model="formBook.name"
-                ></v-text-field>
-                <v-text-field 
-                    class="mt-5 mx-6" 
-                    label="Edição"
-                    v-model="formBook.edition"
-                ></v-text-field>
-                <v-text-field 
-                    class="mt-5 mx-6" 
-                    label="Gênero do Livro"
-                    v-model="formBook.genre"
-                ></v-text-field>
-                <v-text-field 
-                    class="mt-5 mx-6" 
-                    label="Autor do livro"
-                    v-model="formBook.author"
-                ></v-text-field>
-                <v-text-field 
-                    class="mt-5 mx-6" 
-                    label="Código de registro do livro"
-                    v-model="formBook.code"
-                ></v-text-field>
-                <div class="d-flex justify-end">
-                    <v-btn class="my-2 mx-2" @click=" registerBook(),registerBookDialog = false">Confirmar</v-btn>
-                    <v-btn class="my-2 mx-2" @click='registerBookDialog = false'>Cancelar</v-btn>
-                </div>                 
-            </v-card>
-        </v-dialog>
+        </v-dialog>        
         <v-dialog
             v-if="detail" 
             v-model="clubLoginDialog"
@@ -330,7 +291,7 @@ export default {
             }
             params.groupLimit=parseInt(params.groupLimit)
             if(params.groupLimit){
-                if(this.formClub.password === this.formClub.checkPassword && this.formClub.password != null){
+                if(this.formClub.password === this.formClub.checkPassword && this.formClub.password != null && this.formClub.password != ""){
                     this.$store.dispatch("Club/create",params)
                         .then(()=> this.$router.go())
                     }else{
