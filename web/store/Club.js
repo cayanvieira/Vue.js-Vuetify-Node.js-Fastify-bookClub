@@ -56,6 +56,18 @@ export const actions = {
         }
       )
       .then(response => response.data)
+  },
+
+  updateDescription(_,{clubId, description}){
+    return this.$axios.put(`/club/${clubId}/update_description`,
+      {
+        description: description,
+      }
+    ).then(response => response.data)
+  },
+
+  deleteDescription(_,id){
+    return this.$axios.delete(`/club/${id}/delete_description`)
   }
 }
 

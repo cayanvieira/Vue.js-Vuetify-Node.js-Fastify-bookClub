@@ -7,16 +7,6 @@
             <v-card height="50px"
                 class="d-flex justify-end align-center rounded-xl elevation-10 mx-5"
             >
-                <v-divider vertical></v-divider> 
-                <v-btn 
-                    class="mx-2" 
-                    elevation="0" 
-                    color='white' 
-                    @click="createClubDialog =! createClubDialog"
-                >
-                    <v-icon class="mr-2">mdi-plus</v-icon>
-                    Criar novo clube do livro
-                </v-btn>
                 <v-divider vertical></v-divider>
                 <v-btn 
                     class="mx-2" 
@@ -28,147 +18,76 @@
                     Cadastrar novo livro
                 </v-btn>                 
             </v-card>
+
             <v-card class="mt-5 rounded-xl mx-5">
-                <v-card-title class="d-flex justify-center ">Últimos Clubes Criados</v-card-title>
-                <v-divider></v-divider>
-                <v-slide-group                                         
-                    show-arrows
-                >
-                   <v-slide-item  
-                        v-for="(club,k) in clubs"
-                        :key="k"                        
-                    >
-                       <v-card
-                         
-                            width="250px"
-                            class="mx-3 my-3 rounded-xl " 
-                            color="blue-grey darken-3 white--text"
-                            elevation="10"                            
-                           
+                <v-card-title class="d-flex justify-center ">Livros Cadastrados</v-card-title>
+            </v-card> 
+            
+            <v-simple-table
+                class="ma-5"               
+                
+            >
+                <template v-slot:default>
+                    <thead>
+                        <tr>
+                            <th>
+                                Nome
+                            </th>
+                            <th>
+                                Gênero
+                            </th>
+                            <th>
+                               Edição
+                            </th>
+                            <th>
+                               Autor
+                            </th>
+                            <th>
+                               Código
+                            </th>
+                             <th>
+                               Ações
+                            </th>  
+                        </tr>    
+                    </thead>
+                    <tbody>
+                        <tr
+                        v-for="(item,i) in books"
+                            :key="i"
                         >
-                            <v-card-title  class="ma-auto overflow-auto py-1"> {{club.name}}
-                                <v-spacer></v-spacer>
-                                <v-btn 
-                                    small
-                                    elevation="0"
-                                    fab
-                                    @click="detail = club, clubLoginDialog = !clubLoginDialog"
-                                >
-                                <v-icon>
-                                    mdi-arrow-right
-                                </v-icon>
-                            </v-btn>
-                            </v-card-title>
-                            
-                            <v-divider color="white"></v-divider>
-                            <v-row>
-                                <v-col>
-                                    <v-card-text class="py-1" color=" white--text">Livro Atual :  {{club.actual_book}}</v-card-text>                            
-                                
-                                    <v-card-text class="py-1" color=" white--text">Dono do Club : {{club.owner}}</v-card-text>
-                                
-                                    <v-card-text class="py-1" color=" white--text">Limite de participantes : {{club.group_limit}}</v-card-text>
-                                
-                                    <v-card-text  class="py-1" color=" white--text">Data de criação : {{club.date_create}}</v-card-text>
-                                </v-col>
-                            </v-row>
-                        </v-card>  
-                   </v-slide-item>     
-                </v-slide-group>                         
-            </v-card>   
+                            <td>
+                                {{item.name}}
+                            </td>
+                            <td>
+                                {{item.genre}}
+                            </td>
+                            <td>
+                                {{item.edition}}
+                            </td>
+                            <td>
+                                {{item.author}}
+                            </td>
+                            <td>
+                                {{item.code}}
+                            </td>
+                            <td width="150px">
+                                <v-btn fab small color="blue-grey darken-3 white--text" @click="detail=item, updateBookDialog = !updateBookDialog"> 
+                                    <v-icon>
+                                        mdi-pencil
+                                    </v-icon>
+                                </v-btn>
+                                <v-btn fab small color="blue-grey darken-3 white--text" @click="detail=item, deleteDialog = !deleteDialog "> 
+                                    <v-icon>
+                                        mdi-close
+                                    </v-icon>
+                                </v-btn>
+                            </td>
+                        </tr>
+                    </tbody>    
+                </template>                   
+            </v-simple-table>                      
         </v-main>
-        <v-dialog v-model="createClubDialog" max-width="1000px">
-            <v-card>
-                <v-card-title>
-                    Criar Clube do Livro
-                </v-card-title>
-                <v-divider color="black" class="mx-6"></v-divider>
-                <v-text-field 
-                    class="mt-5 mx-6" 
-                    label="Nome do Clube"
-                    v-model="formClub.name"
-                ></v-text-field>
-                <v-text-field 
-                    class="mt-5 mx-6" 
-                    label="Livro a ser lido pelo clube"
-                    v-model="formClub.book"
-                ></v-text-field>
-                <v-text-field 
-                    class="mt-5 mx-6" 
-                    label="Limite de membros"
-                    v-model="formClub.groupLimit"
-                ></v-text-field>
-                <v-text-field
-                    type="password" 
-                    class="mt-5 mx-6" 
-                    label="Senha"
-                    v-model="formClub.password"
-                ></v-text-field>
-                <v-text-field 
-                    type="password" 
-                    class="mt-5 mx-6" 
-                    label="Confirmar Senha"
-                    v-model="formClub.checkPassword"
-                ></v-text-field>
-                <div class="d-flex justify-end">
-                    <v-btn class="my-2 mx-2" @click=" createClub(),createClubDialog = false">Confirmar</v-btn>
-                    <v-btn class="my-2 mx-2" @click='createClubDialog = false'>Cancelar</v-btn>
-                </div>                 
-            </v-card>
-            <v-dialog 
-                v-model="alertWrongPassword"
-                class="d-flex align-center"
-                width="600px" 
-                height="300px"
-            >
-                <v-card
-                    width="600px" 
-                    height="100px"
-                    class="d-flex justify-center" 
-                >
-                    <v-card-title>
-                        Senhas não conferem
-                    </v-card-title>
-                    <div class="d-flex align-center">
-                        <v-btn
-                            color="blue-grey darken-3 white--text rounded-xl"  
-                            @click="alertWrongPassword = false, createClubDialog = true"
-                        >
-                            <v-icon >
-                                mdi-close
-                            </v-icon>
-                        </v-btn>   
-                    </div>
-                </v-card>
-            </v-dialog>
-            <v-dialog 
-                v-model="alertInteger"
-                class="d-flex align-center"
-                width="600px" 
-                height="300px"
-            >
-                <v-card
-                    width="600px" 
-                    height="100px"
-                    class="d-flex justify-center" 
-                >
-                    <v-card-title class="justify-center">
-                        O número máximo de participantes <br>
-                        deve ser um numeral
-                    </v-card-title>
-                    <div class="d-flex align-center">
-                        <v-btn
-                            color="blue-grey darken-3 white--text rounded-xl"  
-                            @click="alertWrongPassword = false, createClubDialog = true"
-                        >
-                            <v-icon >
-                                mdi-close
-                            </v-icon>
-                        </v-btn>   
-                    </div>
-                </v-card>
-            </v-dialog>
-        </v-dialog>
+       
         <v-dialog v-model="registerBookDialog" 
                 max-width="1000px"
             >
@@ -203,77 +122,65 @@
                     v-model="formBook.code"
                 ></v-text-field>
                 <div class="d-flex justify-end">
-                    <v-btn class="my-2 mx-2" @click=" registerBook(),registerBookDialog = false">Confirmar</v-btn>
+                    <v-btn class="my-2 mx-2" @click=" registerBook()">Confirmar</v-btn>
                     <v-btn class="my-2 mx-2" @click='registerBookDialog = false'>Cancelar</v-btn>
                 </div>                 
             </v-card>
         </v-dialog>
-        <v-dialog
-            v-if="detail" 
-            v-model="clubLoginDialog"
-            max-width="300px"            
-        >
-            <v-card
-                width="300px"                
+
+        <v-dialog v-model="updateBookDialog" 
+                max-width="1000px"
             >
-                <v-card-subtitle class="d-flex justify-center pa-0">Entrar no Club</v-card-subtitle>
-                <v-divider></v-divider>
-                <v-card-title class="justify-center">
-                     {{detail.name.toUpperCase()}} 
+            <v-card>
+                <v-card-title>
+                    Atualizar Livro
                 </v-card-title>
-                <v-divider></v-divider>
-                <v-text-field
-                    type="password"
-                    class="mt-5 mx-5 d-flex"                    
-                    label="Digite a senha do Club"
-                    outlined
-                    v-model="clubPassword"
-                >                    
-                </v-text-field>
-                <div class="justify-center"> 
-                    <v-btn 
-                        class="mb-3 mx-5 pa-0"
-                        width="100px"
-                        @click="loginInClub()"
-                    >
-                        Entrar
-                    </v-btn>
-                    <v-btn 
-                        class="mb-3 mx-5 pa-0"
-                        width="100px"
-                        @click="clubLoginDialog = false"                    
-                    >
-                        Cancelar
-                    </v-btn>                    
-                </div>                
+                <v-divider color="black" class="mx-6"></v-divider>
+                <v-text-field 
+                    class="mt-5 mx-6" 
+                    label="Título do Livro"
+                    v-model="updateBookdata.name"
+                ></v-text-field>
+                <v-text-field 
+                    class="mt-5 mx-6" 
+                    label="Edição"
+                    v-model="updateBookdata.edition"
+                ></v-text-field>
+                <v-text-field 
+                    class="mt-5 mx-6" 
+                    label="Gênero do Livro"
+                    v-model="updateBookdata.genre"
+                ></v-text-field>
+                <v-text-field 
+                    class="mt-5 mx-6" 
+                    label="Autor do livro"
+                    v-model="updateBookdata.author"
+                ></v-text-field>
+                <v-text-field 
+                    class="mt-5 mx-6" 
+                    label="Código de registro do livro"
+                    v-model="updateBookdata.code"
+                ></v-text-field>
+                <div class="d-flex justify-end">
+                    <v-btn class="my-2 mx-2" @click="updateBook(detail.id)">Confirmar</v-btn>
+                    <v-btn class="my-2 mx-2" @click='updateBookDialog = !updateBookDialog'>Cancelar</v-btn>
+                </div>                 
             </v-card>
         </v-dialog>
-        <v-dialog 
-            v-model="alertLoginInClub"
-            class="d-flex align-center"
-            width="600px" 
-            height="300px"
-        >
-            <v-card
-                width="600px" 
-                height="100px"
-                class="d-flex justify-center" 
-            >
+
+        <v-dialog v-model="deleteDialog" width="auto" >
+            <v-card >
                 <v-card-title>
-                    Senha Incorreta
+                    Tem certeza que deseja deletar o Livro? 
                 </v-card-title>
-                <div class="d-flex align-center">
-                    <v-btn
-                        color="blue-grey darken-3 white--text rounded-xl"  
-                        @click="alertLoginInClub = false"
-                    >
-                        <v-icon >
-                            mdi-close
-                        </v-icon>
-                    </v-btn>   
-                </div>
-            </v-card>
-        </v-dialog>        
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn class="ma-3" @click="deleteDialog=false" color="blue-grey darken-3 white--text">Cancelar</v-btn>
+                    <v-btn class="ma-3" @click=" deleteBook(detail.id)" color="blue-grey darken-3 white--text">Deletar</v-btn>
+                    <v-spacer></v-spacer>
+                </v-card-actions>
+            </v-card>            
+        </v-dialog>            
     </v-app>
     <v-app  v-else>
         <v-main class="d-flex justify-center align-center blue-grey darken-3">
@@ -297,31 +204,25 @@ export default {
   components: { bar },
     data(){
         return{            
-            createClubDialog : false,
             registerBookDialog : false,
-            alertWrongPassword : false,
-            alertInteger: false,
-            clubLoginDialog: false,
-            detail:null,
-            clubPassword:null,
-            formClub: {
-                name:null,
-                book:null,
-                groupLimit:null,
-                password:null,
-                checkPassword:null
-            },
             formBook: {
                 name:null,
                 edition:null,
                 genre:null,
                 author:null,
                 code:null
-            },            
-            clubs:[],
-            intoClub:false,
-            alertLoginInClub :false,
-            drawer : false 
+            },
+            updateBookdata: {
+                name:null,
+                edition:null,
+                genre:null,
+                author:null,
+                code:null
+            },
+            deleteDialog:false,
+            books:[],
+            detail:null,
+            updateBookDialog:false
         }
     },
     computed:{
@@ -336,44 +237,11 @@ export default {
                 if(!user){
                     this.$router.push(`/`)
                 }else{
-                    this.fetchNewClubs()
+                    this.get()
                 }
             })
     },    
-    methods:{
-        createClub() {
-            const params = {
-                name:this.formClub.name,
-                actualBook:this.formClub.book,
-                groupLimit:this.formClub.groupLimit,
-                owner:this.whoami.name,
-                password:this.formClub.password
-            }
-            params.groupLimit=parseInt(params.groupLimit)
-            if(params.groupLimit){
-                if(this.formClub.password === this.formClub.checkPassword && this.formClub.password != null){
-                    this.$store.dispatch("Club/create",params)
-                        .then(()=> this.$router.go())
-                    }else{
-                        this.alertWrongPassword = true
-                    }      
-            }else{
-                this.alertInteger = true
-            }
-        },
-        async loginInClub(){
-            const params={ 
-                clubId : this.detail.id,
-                password : this.clubPassword
-            }
-            this.intoClub = await this.$store.dispatch("Club/login",params)
-            
-            if (this.intoClub) {    
-                return this.$router.push(`/club/${this.detail.id}`)
-            }else{
-                return this.alertLoginInClub = false
-            }            
-        },
+    methods:{        
         registerBook() {
             const params = {
                 name:this.formBook.name,
@@ -385,10 +253,26 @@ export default {
             this.$store.dispatch("Book/register",params)
             .then(()=> this.$router.go())           
         },
-        fetchNewClubs() {
-            this.$store.dispatch("Club/fetchNewClubs")
-                .then(data => this.clubs = data)
-        },             
+        get(){
+            this.$store.dispatch('Book/get')
+                .then((data)=> this.books=data )  
+        },
+        deleteBook(id){            
+            this.$store.dispatch('Book/delete',id)
+            .then(()=> this.$router.go())                  
+        },
+        updateBook(book_id){
+            const params = {
+                id:book_id,
+                name:this.updateBookdata.name,
+                edition:this.updateBookdata.edition,
+                genre:this.updateBookdata.genre,
+                author:this.updateBookdata.author,
+                code:this.updateBookdata.code
+            }
+            this.$store.dispatch('Book/update',params)
+            .then(()=> this.$router.go())   
+        }           
     }
 }
 </script>

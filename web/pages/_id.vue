@@ -1,6 +1,6 @@
 <template>    
     <v-app>
-        <bar :administer='whoami.administer'></bar>
+        <bar></bar>
         <v-main>            
             <div class="d-flex justify-center">
                 <v-card class="ma-5" v-if='dataAccount' width="500px">
@@ -217,7 +217,7 @@ export default {
             emailRules: [
                 v => !!v || 'Campo obrigatório',
                 v => /.+@.+/.test(v) || 'E-mail deve ser válido  ',
-            ],
+            ],            
             alertFormSuccess :false,
             alertEmptyBox:false,
             alertDelAccount:false
@@ -245,7 +245,7 @@ export default {
             this.$store.dispatch("Account/get",id)
             .then(data => this.dataAccount = data )
         },
-        update(){
+        update(){            
              const id = this.whoami.id
              const name = this.form.name
              const birthData = this.form.birthData
@@ -272,7 +272,7 @@ export default {
         },
         closeAlertSuccess(){
             this.$router.go()
-        }
+        }    
     }
 }
 </script>

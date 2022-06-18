@@ -53,6 +53,24 @@
                 <div v-if="club.description">            
                     <v-card-title>
                         Descrição do Clube:
+                        <v-spacer></v-spacer>
+                        <v-btn 
+                            class="rounded-xl"
+                            @click="updateDescriptionDialog = !updateDescriptionDialog"
+                        >
+                            <v-icon class="mr-1">
+                                mdi-pencil
+                            </v-icon> Alterar
+                        </v-btn>
+                        <v-btn 
+                            @click="deleteDescription()" 
+                            class="ml-2 rounded-xl"
+                        >
+                            <v-icon>
+                              mdi-delete 
+                            </v-icon>
+                            Deletar
+                        </v-btn>
                     </v-card-title>            
                     <v-card-subtitle               
                     >
@@ -67,7 +85,7 @@
                                 mdi-plus
                             </v-icon>
                             <v-list-item-content>
-                                <v-list-item-title>Criar descrição para o Grupo</v-list-item-title>
+                                <v-list-item-title>Criar descrição para o Clube</v-list-item-title>
                             </v-list-item-content>                     
                             
                         </v-list-item>
@@ -82,10 +100,10 @@
                 <v-card>
                     <v-card-text class="pt-8">
                             <v-textarea
-                            label=' Escreva algo sobre o grupo.'
-                            hide-details                   
-                            outlined
-                            v-model="descriptionForm.text"
+                                label=' Escreva algo sobre o clube.'
+                                hide-details                   
+                                outlined
+                                v-model="descriptionForm.newDescription"
                         ></v-textarea>
                     </v-card-text>
                     <v-card-actions>
@@ -94,9 +112,29 @@
                             <v-btn class="mx-2" @click="subimitDescription" >Confirmar</v-btn>                
                     </v-card-actions>   
                 </v-card>
-            </v-dialog>                           
-        </v-main>              
-           
+            </v-dialog>  
+            <v-dialog 
+                width=500px
+                v-model="updateDescriptionDialog"
+            >
+                <v-card>
+                    <v-card-text class="pt-8" >
+                        <v-textarea
+                            label='Nova descrição'
+                            hide-details
+                            outlined
+                            v-model="descriptionForm.updateDescription"
+                        ></v-textarea>                   
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                            <v-btn class="mx-2" @click="updateDescription()">Alterar</v-btn>
+                            <v-btn class="mx-2" @click="updateDescriptionDialog = false">Cancelar</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>                                   
+        </v-main>     
+  
     </v-app>
 </template>
 <script>
@@ -106,9 +144,11 @@
                club:null,
                descriptionCreate:false,
                descriptionForm:{
-                   text:null
+                   newDescription:null,
+                   updateDescription:null
                },
-               favorited:null
+               favorited:null,
+               updateDescriptionDialog:false,
            }
         },
         computed:{
@@ -135,7 +175,7 @@
                 .then( (data) => this.club = data)
             },
             subimitDescription(){
-                const description=this.descriptionForm.text
+                const description=this.descriptionForm.newDescription
                 const clubId = this.$route.params.id
                 this.$store.dispatch('Club/description',{description,clubId})
                 .then(()=>this.$router.go())                
@@ -158,8 +198,18 @@
                 const clubId = this.$route.params.id
                 this.$store.dispatch('Account/removeFavoriteClub',{accountId, clubId})
                 .then(()=>this.$router.go())                 
+            },
+            updateDescription(){
+                const clubId = this.$route.params.id
+                const description = this.descriptionForm.updateDescription
+                this.$store.dispatch('Club/updateDescription',{clubId, description})
+                .then(()=>this.$router.go())
+            },
+            deleteDescription(){
+                const clubId = this.$route.params.id
+                this.$store.dispatch('Club/deleteDescription',clubId)
+                .then(()=>this.$router.go())
             }
-
         }
     }
     

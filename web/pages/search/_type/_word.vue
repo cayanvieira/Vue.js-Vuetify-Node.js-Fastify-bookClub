@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <v-main >
-        Pesquisou
+    <v-main v-if="result">        
+        {{result}}
     </v-main>
   </v-app>
 </template>
@@ -9,7 +9,9 @@
 <script>
 export default {
   data(){
-    return
+    return{
+      result:null
+    }
   },
   created(){        
         this.$store.dispatch("Auth/sync")
@@ -17,13 +19,18 @@ export default {
               if(!user){
                   this.$router.push(`/`)
               }else{
-                  this.fetchNewClubs()
+                  this.search()
               }
           }
         )
     },
     methods:{
-      
+      search(){
+       const type = this.$route.params.type
+       const word = this.$route.params.word
+        this.$store.dispatch("Search/fetch",{type,word})
+          .then(data => this.result= data)
+      }
     }  
 }
 </script>

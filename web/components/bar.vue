@@ -33,7 +33,9 @@
                     </v-icon>
                     Página Inicial
                 </v-list-item>
-                <v-list-item class=" color white--text">
+                <v-list-item 
+                    :to="`/account/${whoami.id}/myclubs`"
+                    class=" color white--text">
                     <v-icon 
                         class="mr-2"
                         color="white"
@@ -133,17 +135,18 @@
                 outlined
                 filled 
             ></v-select>
-            <v-text-field
+            <v-text-field                
                 v-model="wordSearch"                   
                 class="background-color white search ml-16"
-                placeholder="Pesquise por um grupo, livro ou usuário"
-                rounded
-                outlined
+                placeholder="Pesquise por um clube, livro ou usuário"
+                rounded                
                 hide-details
                 filled 
                 append-icon="mdi-magnify"
+                @click:append="search()"
                 v-on:keyup.enter="search()"
-            ></v-text-field>
+            >            
+            </v-text-field>
             <v-spacer></v-spacer> 
         </v-app-bar>
     </v-container>
@@ -173,8 +176,9 @@ export default {
             window.localStorage.removeItem('user')
         },
         search(){
+            const type =this.choosedType
             const word = this.wordSearch
-            this.$router.push(`/search/${word}`)
+            this.$router.push(`/search/${type}/${word}`)
         }
     }
 }

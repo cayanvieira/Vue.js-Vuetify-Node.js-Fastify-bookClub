@@ -1,11 +1,11 @@
 async function routes(fastify,options){
 
     fastify.get(
-        '/search/:word',
+        '/search/:type/:word',
         async(request)=>{
     
           const {word}=request.params
-          let {type}=request.query
+          let {type}=request.params
     
           if(type === "Livros"){
             const result = fastify.knex('books')
