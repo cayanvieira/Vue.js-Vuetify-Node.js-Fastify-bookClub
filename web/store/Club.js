@@ -68,6 +68,17 @@ export const actions = {
 
   deleteDescription(_,id){
     return this.$axios.delete(`/club/${id}/delete_description`)
+  },
+
+  deleteClub(_,club_id){
+    return this.$axios.delete(`/club/${club_id}/delete`)
+  },
+
+  updatePassword(_,{id,newPassword,oldPassword}){
+    return this.$axios.put(`/club/${id}/update_password`,{
+      new_password:newPassword,
+      password:oldPassword
+    })
   }
 }
 

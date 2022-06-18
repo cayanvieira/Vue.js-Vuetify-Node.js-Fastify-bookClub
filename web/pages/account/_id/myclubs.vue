@@ -1,8 +1,7 @@
 <template>
     <v-app>
         <bar> </bar>
-        <v-main>
-                            
+        <v-main>                                   
             <v-card class="mt-5 rounded-xl mx-5">
                 <v-card-title class="d-flex justify-center ">Meus Clubes</v-card-title>
             </v-card>                
@@ -53,9 +52,23 @@
                                         @click="updateDescriptionDialog=!updateDescriptionDialog,detail=item"
                                         color="blue-grey darken-3 white--text" 
                                         small
-                                    >Alterar descrição</v-chip>
-                                    <v-chip color="blue-grey darken-3 white--text" small>Alterar Senha</v-chip>
-                                    <v-chip color="blue-grey darken-3 white--text" small>Excluir Clube</v-chip>
+                                    >
+                                        Alterar descrição
+                                    </v-chip>
+                                    <v-chip 
+                                        color="blue-grey darken-3 white--text" 
+                                        small
+                                        @click="updatePasswordDialog=!updatePasswordDialog,detail=item"
+                                    >
+                                        Alterar Senha
+                                    </v-chip>
+                                    <v-chip 
+                                        color="blue-grey darken-3 white--text" 
+                                        small
+                                        @click="deleteClubDialog = !deleteClubDialog ,detail=item" 
+                                    >
+                                        Excluir Clube
+                                    </v-chip>
                                 </v-chip-group>
                             </td>
                         </tr>
@@ -114,7 +127,76 @@
                     </tbody>
                     
                 </template>                 
-            </v-simple-table>            
+            </v-simple-table>
+            <v-dialog v-model="updatePasswordDialog" width="auto" v-if="detail">
+                <v-card width="auto">
+                    <v-card-title>
+                        Alterar senha do club.
+                    </v-card-title>
+                    <v-text-field
+                        type="password"
+                        v-model="formPassword.oldPassword" 
+                        outlined 
+                        class="ma-2"
+                        placeholder="Senha Atual"
+                    ></v-text-field>
+                    <v-text-field
+                        type="password"
+                        v-model="formPassword.newPassword"  
+                        outlined 
+                        class="ma-2"
+                        placeholder="Nova Senha"
+                    ></v-text-field>
+                    <v-text-field
+                        type="password"
+                        v-model="formPassword.checkPassword" 
+                        outlined 
+                        class="ma-2"
+                        placeholder="Confirmar Nova Senha"
+                    ></v-text-field>
+                    <v-card-actions>
+                        <v-btn color="blue-grey darken-3 white--text" @click=" updatePasswordDialog = false">
+                            Cancelar
+                        </v-btn>
+                        <v-spacer></v-spacer>
+                        <v-btn 
+                            @click="updatePassword(detail.id)"
+                            color="blue-grey darken-3 white--text">
+                            Confirmar
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+            <v-dialog v-model="deleteClubDialog" width="auto">
+                <v-card width="auto">
+                    <v-card-title>
+                        Deseja deletar o Clube?
+                    </v-card-title>
+                    <v-card-actions>
+                        <v-btn color="blue-grey darken-3 white--text" @click="deleteClubDialog = false">
+                            Cancelar
+                        </v-btn>
+                        <v-spacer></v-spacer>
+                        <v-btn color="blue-grey darken-3 white--text" @click="deleteClub(detail.id) ">
+                            Confirmar
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+            <v-dialog v-model="updatePasswordDialogSuccess" width="auto">
+                <v-card width="auto" class="d-flex justify-center align-center">                    
+                        <v-card-title>
+                        Senha alterada com sucesso!
+                        </v-card-title>
+                        
+                            <v-btn color="blue-grey darken-3 white--text ma-5" @click="updatePasswordDialogSuccess = false,updatePasswordDialog = false">
+                                <v-icon>
+                                    mdi-close
+                                </v-icon>
+                            </v-btn>                        
+                        
+                        </v-card>                     
+            </v-dialog>             
             <v-dialog
                 v-if="detail" 
                 v-model="clubLoginDialog"
@@ -189,16 +271,24 @@
         components:{bar},
         data(){
             return{
+              deleteClubDialog:false,
               selfClub:null,
               favoriteClub:null,
               clubLoginDialog:false,
+              updatePasswordDialog:false,
               detail:null,
               clubPassword:null,
               updateDescriptionDialog:false,
               descriptionForm:{
                 newDescription:null
-              }
-              
+              },
+              newPasswordClub:null,
+              formPassword:{
+                oldPassword:null,
+                newPassword:null,
+                checkPassword:null
+              },
+              updatePasswordDialogSuccess:false
             }
 
         },
@@ -266,7 +356,20 @@
                 this.$store.dispatch('Account/removeFavoriteClub',{accountId, clubId})
                 .then(()=>this.$router.go())                 
             },
-            
+            deleteClub(club_id){
+                this.$store.dispatch("Club/deleteClub",club_id)
+                .then(()=>this.$router.go())  
+            },
+            updatePassword(club_id){
+                const id=club_id
+                const oldPassword=this.formPassword.oldPassword
+                const newPassword=this.formPassword.newPassword
+                const checkPassword=this.formPassword.checkPassword
+                if(newPassword==checkPassword){
+                    this.$store.dispatch("Club/updatePassword", {id,newPassword,oldPassword})
+                    .then(()=> this.updatePasswordDialogSuccess=true)
+                }
+            }
         } 
     } 
 </script>

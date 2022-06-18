@@ -178,8 +178,7 @@ async function routes(fastify, options) {
         .then(data => reply.send(data))
     }
   )
-
-  //Deletar club 12/06/2022
+ 
   fastify.delete(
     '/club/:club_id/delete',
     async (request, reply) => {
