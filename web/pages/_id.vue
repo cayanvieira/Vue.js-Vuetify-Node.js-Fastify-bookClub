@@ -66,13 +66,40 @@
                          required 
                     ></v-text-field>
                     
-                    <v-text-field
-                        :rules="rules"   
-                        v-model="form.sex" 
-                        class="mx-5 my-2" 
-                        label="Sexo"
-                        required
-                    ></v-text-field>
+                   <v-row>
+                        <v-radio-group
+                            v-model="form.sex"
+                            hide-details
+                            row
+                            class="mx-5"
+                        >
+                            <v-radio
+                                
+                                class="mx-5 mt-0"
+                                label="Feminino"
+                                value="feminino"
+                                hide-details="true"
+                                required="true"
+                                                                    
+                            ></v-radio>
+                            <v-radio
+                            
+                                class="mx-5 mt-0"
+                                label="Masculino"
+                                value="masculino"
+                                hide-details="true"
+                                required="true"                                    
+                            ></v-radio>
+                            <v-radio
+                                
+                                class="mx-5 mt-0"
+                                label="Outros"
+                                value="outros.sex"
+                                hide-details="true"
+                                required="true"                                    
+                            ></v-radio>
+                        </v-radio-group>  
+                    </v-row>
                     
                     <v-text-field
                         :rules="emailRules"   

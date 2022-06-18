@@ -20,47 +20,51 @@
                         <v-form >
                             <v-row>
                                 <v-text-field
+                                    :rules="rules"
                                     v-model="form.name"                               
                                     label="Nome Completo"                                    
                                     hide-details="true"                                    
-                                    class="mx-5 mt-0"
+                                    class="mx-5 mt-3"
+                                    required
                                 ></v-text-field>
                             </v-row>
                             <v-row>
                                 <v-text-field
+                                    :rules="rules"
                                     v-model="form.birthData"                               
                                     label="Data de Nascimento"                                    
                                     hide-details="true"
-                                    class="mx-5 mt-0"
+                                    class="mx-5 mt-3"
                                     v-mask="'##/##/####'"
+                                    required
                                 ></v-text-field>
                             </v-row>
                             <v-row>
-                                <v-radio-group
+                                <v-radio-group                                
                                     v-model="form.sex"
                                     hide-details
                                     row
                                 >
                                     <v-radio
                                         
-                                        class="mx-5 mt-0"
+                                        class="mx-5 mt-3"
                                         label="Feminino"
-                                        value="feminino.sex"
+                                        value="feminino"
                                         hide-details="true"
                                         required="true"
                                                                             
                                     ></v-radio>
                                     <v-radio
                                     
-                                        class="mx-5 mt-0"
+                                        class="mx-5 mt-3"
                                         label="Masculino"
-                                        value="masculino.sex"
+                                        value="masculino"
                                         hide-details="true"
                                         required="true"                                    
                                     ></v-radio>
                                     <v-radio
                                         
-                                        class="mx-5 mt-0"
+                                        class="mx-5 mt-3"
                                         label="Outros"
                                         value="outros.sex"
                                         hide-details="true"
@@ -70,10 +74,11 @@
                             </v-row>
                             <v-row>
                                 <v-text-field
+                                    :rules="emailRules"   
                                     v-model="form.email"
-                                    label="E-mail"                                    
-                                    hide-details="true"
-                                    class="mx-5 mt-0"
+                                    required
+                                    label="E-mail"   
+                                    class="mx-5 mt-3"
                                     v-mask="'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-. ]+$'"
                                 ></v-text-field>                               
                             </v-row>   
@@ -81,6 +86,7 @@
                             <v-row>
                                 <v-col>
                                     <v-select
+                                    :rules="rules"
                                     v-model="form.uf"                                   
                                     :items="items"
                                     item-text="uf"
@@ -93,20 +99,22 @@
                             
                              <v-row>
                                 <v-text-field
+                                    :rules="rules"
                                     v-model="form.password"                                    
                                     label="Senha"                                    
                                     hide-details="true"
-                                    class="mx-5 mt-0"
+                                    class="mx-5 mt-3"
                                     type="password"                                    
                                 ></v-text-field>
                             </v-row>
 
                             <v-row>
                                 <v-text-field
+                                    :rules="rules"
                                     v-model="form.checkPassword"                                     
                                     label="Confirmar Senha"                                    
                                     hide-details="true"
-                                    class="mx-5 mt-0"
+                                    class="mx-5 mt-3"
                                     type="password"
                                 ></v-text-field>
                             </v-row>
@@ -351,73 +359,67 @@
 <script>
 export default {
   data() {
-    return {
-      items: [
-        { uf: "Acre" },
-        { uf: "Alagoas" },
-        { uf: "Amapá" },
-        { uf: "Amazonas" },
-        { uf: "Bahia" },
-        { uf: "Ceará" },
-        { uf: "Distrito Federal" },
-        { uf: "Espírito Santo" },
-        { uf: "Goiás" },
-        { uf: "Maranhão" },
-        { uf: "Mato Grosso" },
-        { uf: "Mato Grosso do Sul" },
-        { uf: "Minas Gerais" },
-        { uf: "Pará" },
-        { uf: "Paraíba" },
-        { uf: "Peraná" },
-        { uf: "Pernambuco" },
-        { uf: "Piauí" },
-        { uf: "Rio de janeiro" },
-        { uf: "Rio Grande do Norte" },
-        { uf: "Rio Grande do Sul" },
-        { uf: "Rondônia" },
-        { uf: "Roraima" },
-        { uf: "Santa Catarina" },
-        { uf: "São Paulo" },
-        { uf: "Sergipe" },
-        { uf: "Tocantins" },
-      ],
+    return {  
+            items: [
+                { uf: "Acre" },
+                { uf: "Alagoas" },
+                { uf: "Amapá" },
+                { uf: "Amazonas" },
+                { uf: "Bahia" },
+                { uf: "Ceará" },
+                { uf: "Distrito Federal" },
+                { uf: "Espírito Santo" },
+                { uf: "Goiás" },
+                { uf: "Maranhão" },
+                { uf: "Mato Grosso" },
+                { uf: "Mato Grosso do Sul" },
+                { uf: "Minas Gerais" },
+                { uf: "Pará" },
+                { uf: "Paraíba" },
+                { uf: "Peraná" },
+                { uf: "Pernambuco" },
+                { uf: "Piauí" },
+                { uf: "Rio de janeiro" },
+                { uf: "Rio Grande do Norte" },
+                { uf: "Rio Grande do Sul" },
+                { uf: "Rondônia" },
+                { uf: "Roraima" },
+                { uf: "Santa Catarina" },
+                { uf: "São Paulo" },
+                { uf: "Sergipe" },
+                { uf: "Tocantins" },
+            ],
+            activePicker: null,
+            date: null,
+            menu: false,
+            emailRules: [
+                v => !!v || 'Campo obrigatório',
+                v => /.+@.+/.test(v) || 'E-mail deve ser válido  ',
+            ],
+            rules: [
+                v => !!v || 'Campo obrigatório',                
+            ],
+            form: {
+                name: null,
+                birthData: null,
+                email: null,
+                password: null,
+                checkPassword: null,
+                sex: null,
+                uf: null,
+            },
+            alertPassword: false,
+            alertRegister: false,
+            alertNullPassword: false,
+            alertNullEmail: false,
+            alertNullName: false,
+            alertNullBirthData: false,
+            alertNullSex: false,
+            alertNullUF: false,
+        }
 
-      data: () => ({
-      activePicker: null,
-      date: null,
-      menu: false,
-    }),
-    watch: {
-      menu (val) {
-        val && setTimeout(() => (this.activePicker = 'YEAR'))
-      },
     },
     methods: {
-      save (date) {
-        this.$refs.menu.save(date)
-      },
-    },
-      
-      form: {
-        name: null,
-        birthData: null,
-        email: null,
-        password: null,
-        checkPassword: null,
-        sex: null,
-        uf: null,
-      },
-      alertPassword: false,
-      alertRegister: false,
-      alertNullPassword: false,
-      alertNullEmail: false,
-      alertNullName: false,
-      alertNullBirthData: false,
-      alertNullSex: false,
-      alertNullUF: false,
-    };
-  },
-  methods: {
     subimit() {
       if (
         this.form.name != null &&
