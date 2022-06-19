@@ -64,13 +64,27 @@ async function routes(fastify, options) {
     )
     
     fastify.get(
-        '/book',
+        '/book/list',
         async(request, reply) => {
             const {id} = request.params
 
             fastify.knex("book")
                 .select('*')
                 .then(data => reply.send(data));
+        }
+    )
+
+    fastify.get(
+        '/book/:id',
+        async(request, reply) => {
+            const {id} = request.params
+
+            fastify.knex("book")
+                .select('*')
+                .where('id',id)
+                .first()
+                .then(data => reply.send(data));
+            
         }
     )
 

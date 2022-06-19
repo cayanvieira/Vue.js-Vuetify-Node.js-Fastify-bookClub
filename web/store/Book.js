@@ -15,7 +15,11 @@ export const actions = {
     ).data
   },
   get(_){
-    return this.$axios.get('/book')
+    return this.$axios.get('/book/list')
+      .then(response => response.data)
+  },
+  specificBook(_,id){
+    return this.$axios.get(`/book/${id}`)
       .then(response => response.data)
   },
   newBooks(_){
