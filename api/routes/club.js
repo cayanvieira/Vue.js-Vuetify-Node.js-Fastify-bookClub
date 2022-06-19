@@ -55,8 +55,9 @@ async function routes(fastify, options) {
     async (request, reply) => {
 
       fastify.knex("club")
-        .select('*')
-        .orderBy('id', 'desc')        
+        .select('club.*','book.name as book_name')
+        .orderBy('club.id', 'desc')
+        .join('book','book.id','club.actual_book_id')        
         .then(data => reply.send(data.slice(0, 10)))
     }
   )

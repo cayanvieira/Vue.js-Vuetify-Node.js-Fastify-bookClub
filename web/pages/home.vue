@@ -50,7 +50,7 @@
                             <v-divider color="white"></v-divider>
                             <v-row>
                                 <v-col>
-                                    <v-card-text class="py-1" color=" white--text">Livro Atual :  {{club.actual_book_id}}</v-card-text>                            
+                                    <v-card-text class="py-1" color=" white--text">Livro Atual :  {{club.book_name}}</v-card-text>                            
                                 
                                     <v-card-text class="py-1" color=" white--text">Dono do Club : {{club.owner_name}}</v-card-text>
                                 
