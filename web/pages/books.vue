@@ -42,8 +42,10 @@
                             :key="i"
                         >
                             <td class="text-center">
-                                <v-btn small color="blue-grey darken-3 white--text rounded-xl">
-                                    Pagina do livro
+                                <v-btn  fab small color="blue-grey darken-3 white--text rounded-xl" :to="`/book/${item.id}`">
+                                    <v-icon>
+                                        mdi-link
+                                    </v-icon>
                                 </v-btn>
                             </td >
                             <td class="text-center">
@@ -117,8 +119,10 @@
                             :key="i"
                         >
                             <td class="text-center">
-                                <v-btn small color="blue-grey darken-3 white--text rounded-xl">
-                                    Pagina do livro
+                                 <v-btn  fab small color="blue-grey darken-3 white--text rounded-xl" :to="`/book/${item.id}`">
+                                    <v-icon>
+                                        mdi-link
+                                    </v-icon>
                                 </v-btn>
                             </td >
                             <td class="text-center">
