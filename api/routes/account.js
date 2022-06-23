@@ -252,6 +252,104 @@ async function routes(fastify, options) {
     }
   )
 
+  fastify.post(
+    '/account/:id/add_my_library_read_list',
+    async(request,reply)=>{
+      const {id}=request.params
+      const {book_id} = request.body
+
+      var verifyRead =  await fastify.knex('my_library')
+        .select('book_id','read','want_to_read')
+        .where("account_id",id)
+        .where("book_id",book_id)
+        .where('read',true)
+        .first()
+        console.log(verifyRead)   
+        
+      var verifyWantToRead =  await fastify.knex('my_library')
+      .select('book_id','read','want_to_read')
+      .where("account_id",id)
+      .where("book_id",book_id)
+      .where('want_to_read',true)
+      .first()
+      console.log(verifyWantToRead) 
+        
+
+      if(verifyRead===undefined && verifyWantToRead===undefined){
+        
+       const result= await fastify.knex('my_library')        
+        .insert({
+          account_id:id,
+          book_id:book_id,
+          want_to_read:false,
+          read:true
+        }) 
+        return verifyRead = result 
+      }    
+
+      if(verifyRead === undefined && verifyWantToRead?.want_to_read=== true){
+        
+       const result= await fastify.knex('my_library')        
+        .update({
+          want_to_read:false,
+          read:true
+        }) 
+        return verifyRead = result 
+      }
+
+
+      return verifyRead || verifyWantToRead
+    }
+  )
+
+  fastify.post(
+    '/account/:id/add_my_library_want_to_read_list',
+    async(request,reply)=>{
+      const {id}=request.params
+      const {book_id} = request.body      
+
+      var verifyWantToRead =  await fastify.knex('my_library')
+      .select('book_id','read','want_to_read')
+      .where("account_id",id)
+      .where("book_id",book_id)
+      .where('want_to_read',true)
+      .first()
+      console.log(verifyWantToRead)
+
+      var verifyRead =  await fastify.knex('my_library')
+        .select('book_id','read','want_to_read')
+        .where("account_id",id)
+        .where("book_id",book_id)
+        .where('read',true)
+        .first()
+        console.log(verifyRead)   
+
+      if(verifyRead===undefined && verifyWantToRead===undefined){
+        console.log('oi')
+       const result= await fastify.knex('my_library')        
+        .insert({
+          account_id:id,
+          book_id:book_id,
+          want_to_read:true,
+          read:false
+        })
+        return verifyWantRead = result 
+      }
+      if(verifyRead?.read === true && verifyWantToRead === undefined){
+        console.log("oioi")
+        const result= await fastify.knex('my_library')        
+         .update({
+           want_to_read:true,
+           read:false
+         }) 
+         return verifyRead = result 
+       } 
+
+      return verifyRead || verifyWantToRead
+
+
+    }
+  )
 }
 
 module.exports = routes
