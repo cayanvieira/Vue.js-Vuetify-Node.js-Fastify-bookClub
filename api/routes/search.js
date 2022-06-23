@@ -9,20 +9,20 @@ async function routes(fastify,options){
     
           if(type === "Livros"){
             const result = fastify.knex("book")
-            .select('name')        
+            .select('id','name')        
             .where('name', word) 
             return result
           }
           else if(type === "Usuários"){
     
             const result = fastify.knex('account')
-            .select('name')        
+            .select('id','name')        
             .where('name', word) 
             return result
           }
           else{
             const result = fastify.knex('club')
-            .select('name')        
+            .select('id','name')        
             .where('name', word) 
             return result
           }

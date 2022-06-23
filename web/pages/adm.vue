@@ -52,7 +52,7 @@
                     </thead>
                     <tbody>
                         <tr
-                        v-for="(item,i) in books"
+                            v-for="(item,i) in books"
                             :key="i"
                         >
                             <td>
