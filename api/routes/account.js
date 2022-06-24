@@ -346,8 +346,64 @@ async function routes(fastify, options) {
        } 
 
       return verifyRead || verifyWantToRead
+    }
+  )
 
+  fastify.delete(
+    "/account/:id/remove_want_to_read",
+    {},
+    async(request, reply) => {
+      const {id} = request.params
+      const {bookId} = request.body
 
+      fastify.knex('my_library')
+      .where('account_id', id)
+      .where('book_id', bookId)
+      .where('want_to_read', true)
+      .del()
+      .then(data => reply.send(data))
+    }
+  )
+
+  fastify.delete(
+    "/account/:id/remove_read",
+    {},
+    async(request, reply) => {
+      const {id} = request.params
+      const {bookId} = request.body
+
+      fastify.knex('my_library')
+      .where('account_id', id)
+      .where('book_id', bookId)
+      .where('read', true)
+      .del()
+      .then(data => reply.send(data))
+    }
+  )
+
+  fastify.get(
+    "/account/:id/want_to_read_list",
+    async(request, reply) => {
+      const {id} = request.params
+      fastify.knex("my_library")
+      .select('my_library.id','my_library.book_id','book.name','my_library.want_to_read')
+      .where('account_id',id)
+      .where('want_to_read',true)
+      .join('book','book.id','my_library.book_id')
+      .then(data => reply.send(data))
+    }
+  )
+
+  fastify.get(
+    "/account/:id/read_list",
+    async(request, reply) => {
+      const {id} = request.params
+      fastify.knex("my_library")
+      .select('my_library.id','my_library.book_id','book.name','my_library.read')
+      .where('account_id',id)
+      .where('read',true)
+      .join('book','book.id','my_library.book_id')
+      .then(data => reply.send(data))
     }
   )
 }
