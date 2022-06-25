@@ -43,7 +43,7 @@
                                 </v-btn>
                             </td>
                             <td class="text-center">{{ item.name }}</td>
-                            <td class="text-center">{{ item.actual_book_id}}</td>
+                            <td class="text-center">{{ item.book_name}}</td>
                             <td class="d-flex justify-center align-center">
                                 <v-chip-group>
 
@@ -118,7 +118,7 @@
                                 </v-btn>
                             </td>
                             <td class="text-center">{{ item.name }}</td>
-                            <td class="text-center">{{ item.actual_book_id }}</td>
+                            <td class="text-center">{{ item.book_name }}</td>
                             <td class="d-flex justify-center align-center">
                                 <v-chip-group>
                                     <v-chip color="blue-grey darken-3 white--text" small @click="detail=item, removeFavoriteClub(detail.id)">Retirar dos Favoritos</v-chip>
