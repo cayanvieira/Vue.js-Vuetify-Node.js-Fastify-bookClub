@@ -62,7 +62,41 @@
                         </v-card>  
                    </v-slide-item>     
                 </v-slide-group>                         
-            </v-card>   
+            </v-card>            
+            <v-row>
+                <v-col cols="6">
+                    <v-card 
+                        height="50px"
+                        class="d-flex justify-center align-center rounded-xl elevation-10 ma-5"                
+                    >                 
+                        <v-card-title>Livros Recentes</v-card-title>
+                    </v-card>
+                    <v-card  class="rounded-xl ma-6">
+                        <v-list
+                            v-for="item,i in newBooks"
+                            :key="i"                           
+                            outlined
+                            shaped
+                            subheader
+                        >                                
+                            <v-list-item :to="`/book/${item.id}`">
+                                <v-icon class="mr-2">mdi-book-open-variant</v-icon>                                                         
+                                <v-list-item-content class="d-flex justify-center aligin-center">                                   
+                                    {{item.name}}
+                                </v-list-item-content>
+                            </v-list-item>                           
+                        </v-list>
+                    </v-card>
+                </v-col>
+                <v-col cols="6">
+                    <v-card 
+                        height="50px"
+                        class="d-flex justify-center align-center rounded-xl elevation-10 ma-5"                
+                    >                 
+                        <v-card-title>Melhores avaliações</v-card-title>
+                    </v-card>
+                </v-col>       
+            </v-row>  
         </v-main>
         <v-dialog v-model="createClubDialog" max-width="1000px">
             <v-card>                
@@ -105,7 +139,7 @@
                     <v-btn class="my-2 mx-2" @click=" createClub(),createClubDialog = false">Confirmar</v-btn>
                     <v-btn class="my-2 mx-2" @click='createClubDialog = false'>Cancelar</v-btn>
                 </div>                 
-            </v-card>
+            </v-card>            
             <v-dialog 
                 v-model="alertWrongPassword"
                 class="d-flex align-center"
@@ -262,7 +296,8 @@ export default {
             clubs:[],
             intoClub:false,
             alertLoginInClub :false,            
-            books:[] 
+            books:[],
+            newBooks:[] 
         }
     },
     computed:{
@@ -279,6 +314,7 @@ export default {
                 }else{
                     this.fetchNewClubs()
                     this.getBooks()
+                    this.fetchNewBooks()
                 }
             })
     },    
@@ -324,7 +360,11 @@ export default {
         getBooks(){
             this.$store.dispatch('Book/get')
                 .then((data)=> this.books=data )  
-        },             
+        },
+        fetchNewBooks(){
+            this.$store.dispatch('Book/newBooks')
+                .then((data) => this.newBooks=data )  
+        },           
     }
 }
 </script>

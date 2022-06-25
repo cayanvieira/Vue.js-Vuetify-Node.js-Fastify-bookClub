@@ -199,15 +199,26 @@ async function routes(fastify, options) {
       const { bookId } = request.body
       const { id } = request.params
 
-      fastify.knex("favorite_book")
+      var verifyFavorite =  await fastify.knex("favorite_book")
+        .select('*')
+        .where( 'book_id', bookId)
+        .where('account_id',id)
+        .first()
+        
+      if(verifyFavorite== undefined){
+        fastify.knex("favorite_book")
         .insert({
           book_id: bookId,
           account_id: id
         })
-        .then(() => reply.send(console.log('added favorite')))
+        .then((data) => verifyFavorite = data)
+        return verifyFavorite
+      }
+      
+      return verifyFavorite || null
     }
   )
-
+    //vereficar necessidade
   fastify.get(
     "/account/:id/favorite_book/:book_id",
     {},
@@ -245,7 +256,7 @@ async function routes(fastify, options) {
       const { id } = request.params
 
       fastify.knex('favorite_book')
-        .select('book.id', 'book.name')
+        .select('*')
         .where('account_id', id)
         .join('book', 'book.id', 'favorite_book.book_id')
         .then(data => reply.send(data))
@@ -289,7 +300,10 @@ async function routes(fastify, options) {
 
       if(verifyRead === undefined && verifyWantToRead?.want_to_read=== true){
         
-       const result= await fastify.knex('my_library')        
+       const result= await fastify.knex('my_library')
+        .where("account_id",id)
+        .where("book_id",book_id)
+        .where('want_to_read',true)       
         .update({
           want_to_read:false,
           read:true
@@ -337,11 +351,14 @@ async function routes(fastify, options) {
       }
       if(verifyRead?.read === true && verifyWantToRead === undefined){
         console.log("oioi")
-        const result= await fastify.knex('my_library')        
-         .update({
-           want_to_read:true,
-           read:false
-         }) 
+        const result= await fastify.knex('my_library')
+          .where("account_id",id)
+          .where("book_id",book_id)
+          .where('read',true)            
+          .update({
+            want_to_read:true,
+            read:false
+          }) 
          return verifyRead = result 
        } 
 
@@ -350,11 +367,11 @@ async function routes(fastify, options) {
   )
 
   fastify.delete(
-    "/account/:id/remove_want_to_read",
+    "/account/:id/remove_want_to_read/:bookId",
     {},
     async(request, reply) => {
       const {id} = request.params
-      const {bookId} = request.body
+      const {bookId} = request.params
 
       fastify.knex('my_library')
       .where('account_id', id)
@@ -366,11 +383,11 @@ async function routes(fastify, options) {
   )
 
   fastify.delete(
-    "/account/:id/remove_read",
+    "/account/:id/remove_read/:bookId",
     {},
     async(request, reply) => {
       const {id} = request.params
-      const {bookId} = request.body
+      const {bookId} = request.params
 
       fastify.knex('my_library')
       .where('account_id', id)
@@ -386,7 +403,7 @@ async function routes(fastify, options) {
     async(request, reply) => {
       const {id} = request.params
       fastify.knex("my_library")
-      .select('my_library.id','my_library.book_id','book.name','my_library.want_to_read')
+      .select('my_library.id','my_library.book_id','book.name','book.genre','book.edition','book.author','my_library.want_to_read')
       .where('account_id',id)
       .where('want_to_read',true)
       .join('book','book.id','my_library.book_id')
@@ -399,7 +416,7 @@ async function routes(fastify, options) {
     async(request, reply) => {
       const {id} = request.params
       fastify.knex("my_library")
-      .select('my_library.id','my_library.book_id','book.name','my_library.read')
+      .select('my_library.id','my_library.book_id','book.name','book.genre','book.edition','book.author','my_library.read')
       .where('account_id',id)
       .where('read',true)
       .join('book','book.id','my_library.book_id')

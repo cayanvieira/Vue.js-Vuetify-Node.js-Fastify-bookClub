@@ -95,7 +95,7 @@ async function routes(fastify, options) {
           fastify.knex("book")
             .select('*')
             .orderBy('id', 'desc')
-            .then(data => reply.send(data.slice(0,8)))
+            .then(data => reply.send(data.slice(0,10)))
         }
       )
 

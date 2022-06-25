@@ -48,7 +48,7 @@
                 <!-- Lembrar de mudar a url -->
                 <v-list-item
                     class=" color white--text"   
-                    :to="`/account/${whoami.id}/mybooks`"
+                    :to="`/account/${whoami.id}/mylibrary`"
                 >
                     <v-icon 
                         class="mr-2"
@@ -56,7 +56,7 @@
                     >
                         mdi-book-open-page-variant
                     </v-icon>
-                    Meus Livros
+                    Minha Biblioteca
                 </v-list-item>
                 <v-divider></v-divider>
                 <v-list-item :to="`/${whoami.id}`" class=" color white--text">
