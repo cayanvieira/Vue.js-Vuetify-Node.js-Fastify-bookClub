@@ -6,24 +6,25 @@ async function routes(fastify,options){
     
           const {word}=request.params
           let {type}=request.params
+          
     
           if(type === "Livros"){
             const result = fastify.knex("book")
             .select('id','name')        
-            .where('name', word) 
+            .where('name','ilike', `%${word}%`) 
             return result
           }
           else if(type === "Usuários"){
     
             const result = fastify.knex('account')
             .select('id','name')        
-            .where('name', word) 
+            .where('name','ilike', `%${word}%`) 
             return result
           }
           else{
             const result = fastify.knex('club')
             .select('id','name')        
-            .where('name', word) 
+            .where('name','ilike', `%${word}%`) 
             return result
           }
           

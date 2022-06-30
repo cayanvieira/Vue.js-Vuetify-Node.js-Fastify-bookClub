@@ -78,8 +78,7 @@
                                     v-model="form.email"
                                     required
                                     label="E-mail"   
-                                    class="mx-5 mt-3"
-                                    v-mask="'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-. ]+$'"
+                                    class="mx-5 mt-3"                                    
                                 ></v-text-field>                               
                             </v-row>   
 
