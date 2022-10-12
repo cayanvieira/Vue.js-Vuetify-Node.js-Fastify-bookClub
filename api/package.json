@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "fastify": "^3.24.0",
     "fastify-cors": "^6.0.2",
     "knex": "^0.95.15",

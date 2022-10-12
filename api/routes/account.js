@@ -1,9 +1,10 @@
-async function routes(fastify, options) {
-
+const bcrypt = require('bcrypt')
+async function routes(fastify, options) {  
   fastify.post(
     "/account/register",
     {},
     async (request, reply) => {
+      
 
       const { name } = request.body
       const { birthData } = request.body
@@ -11,6 +12,9 @@ async function routes(fastify, options) {
       const { password } = request.body
       const { sex } = request.body
       const { uf } = request.body
+      
+      const salt = bcrypt.genSaltSync(10)
+      const hash = bcrypt.hashSync(password,salt)
 
       try {
         fastify.knex("account")
@@ -18,7 +22,7 @@ async function routes(fastify, options) {
             name: name,
             birthData: birthData,
             email: email,
-            password: password,
+            password: hash,
             sex: sex,
             uf: uf,
             administer: false
