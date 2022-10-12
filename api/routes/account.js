@@ -1,4 +1,6 @@
 const bcrypt = require('bcrypt')
+const nodemailer = require("nodemailer")
+
 async function routes(fastify, options) {  
   fastify.post(
     "/account/register",
@@ -16,8 +18,10 @@ async function routes(fastify, options) {
       const salt = bcrypt.genSaltSync(10)
       const hash = bcrypt.hashSync(password,salt)
 
+      let sendEmail = false
+
       try {
-        fastify.knex("account")
+        const account = await fastify.knex("account")
           .insert({
             name: name,
             birthData: birthData,
@@ -28,11 +32,40 @@ async function routes(fastify, options) {
             administer: false
           })
           .then(
-            newAccount => reply.send(newAccount)
+            newAccount => {
+              sendEmail = true              
+              return newAccount
+            }
+
           )
       }
       catch {
         console.log('Erro ao cadastrar')
+      }
+
+      
+      if(sendEmail === true){    
+        let transporter  = nodemailer.createTransport({
+          host: "smtp.gmail.com",
+          port: 465,
+          secure: true, 
+          auth: {
+            user: 'filipecayandev@gmail.com', 
+            pass: 'nmwogmztvatbbbcc', 
+          },
+        })
+
+        let info = await transporter.sendMail({
+          from: 'Clube do Livro <filipecayandev@gmail.com>', // sender address
+          to: email, // list of receivers
+          subject: "Bem-vindo", // Subject line
+          text: "Welcome to BookClub", // plain text body          
+        });
+        
+        return info
+      }
+      else{
+        return console.log('Erro ao enviar email')
       }
     },
   )
