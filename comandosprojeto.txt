@@ -7,4 +7,4 @@
 // descer ultima tabela va na pasta api/database
     knex migrate:down
 // descer Todas tabelas va na pasta api/database
-    knex migrate:down
+    knex migrate:rollback

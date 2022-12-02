@@ -51,7 +51,7 @@ async function routes(fastify, options) {
           secure: true, 
           auth: {
             user: 'filipecayandev@gmail.com', 
-            pass: 'nmwogmztvatbbbcc', 
+            pass: process.env.NODE_MAIL_PASSWORD, 
           },
         })
 

@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
     "fastify": "^3.24.0",
     "fastify-cors": "^6.0.2",
     "knex": "^0.95.15",
@@ -15,7 +16,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "nodemon": "nodemon server.js"
+    "nodemon": "nodemon server.js",
+    "knex": "node -r dotenv/config database/cli.js"
   },
   "author": "",
   "license": "ISC"
