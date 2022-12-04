@@ -9,11 +9,8 @@ require('./database/dbConnector')(fastify)
 fastify.register(require("fastify-cors"),{origin:"*"})
 
 //Rotas
-fastify.register(require('./routes/account.js'))
-fastify.register(require('./routes/auth.js'))
-fastify.register(require('./routes/club.js'))
-fastify.register(require('./routes/book.js'))
-fastify.register(require('./routes/search.js'))
+require('./routes/index.js')(fastify)
+
 
 fastify.get( '/', async(reply)=>{
  reply.send('Servidor Ligado')
