@@ -12,7 +12,7 @@ fastify.register(require("fastify-cors"),{origin:"*"})
 require('./routes/index.js')(fastify)
 
 //plugins
-require('./plugin')(fastify)
+require('./plugin/service')(fastify)
 
 
 fastify.get( '/', async(reply)=>{
