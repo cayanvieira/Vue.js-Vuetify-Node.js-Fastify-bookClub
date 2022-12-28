@@ -1,5 +1,5 @@
 const Service =  require('../service/')
 
-module.exports = (fastify) => {
+module.exports = (fastify) => {    
     fastify.decorate('service', new Service())
 }
