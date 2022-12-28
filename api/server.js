@@ -11,6 +11,9 @@ fastify.register(require("fastify-cors"),{origin:"*"})
 //Rotas
 require('./routes/index.js')(fastify)
 
+//plugins
+require('./plugin/service')(fastify)
+
 
 fastify.get( '/', async(reply)=>{
  reply.send('Servidor Ligado')
