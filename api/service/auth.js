@@ -42,11 +42,10 @@ module.exports = class Service{
                 secret,
             )
 
-            return reply.status(200).send({user,token})
+            return reply.status(200).send({payload:user,token})
 
         } catch (err) {
             return reply.status(422).send({message:'Access deny'})
         }
     }
-    
 }
