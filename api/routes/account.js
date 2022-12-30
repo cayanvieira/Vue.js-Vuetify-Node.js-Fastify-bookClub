@@ -14,6 +14,7 @@ async function routes(fastify, options) {
     },
   )
 
+  
   fastify.get(
     "/:id/data",
     async (request) => {
