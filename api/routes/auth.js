@@ -1,11 +1,11 @@
 async function routes(fastify, options) {
 
     fastify.post(
-        "/login",
+        "/signin",
         (request,reply) => {
             const { email } = request.body
             const { password } = request.body
-            return fastify.service.Auth.login(email,password,reply)
+            return fastify.service.Auth.signIn(email,password,reply)
         },
     )
 }

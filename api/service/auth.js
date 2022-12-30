@@ -3,7 +3,7 @@ const knex = require('../database/client')
 const jwt = require('jsonwebtoken')
 
 module.exports = class Service{
-    async login(email,password,reply){
+    async signIn(email,password,reply){
 
         if(!email){
             return reply.code(422).send({message:" Campo e-mail vazio"})
@@ -35,7 +35,9 @@ module.exports = class Service{
 
             const token = jwt.sign(
                 {
-                id: user.id
+                id: user.id,
+                name:user.name,
+                administer: user.administer
                 },
                 secret,
             )
