@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt')
 const knex = require('../database/client')
+const jwt = require('jsonwebtoken')
 
 module.exports = class Service{
     async login(email,password,reply){
@@ -11,30 +12,39 @@ module.exports = class Service{
             return reply.code(422).send({message:" Campo senha vazio"})
         }
        
-        const user = await knex("account")
+        const hash = await knex("account")
             .select('password')              
             .where('email',email)
             .first()
 
-        const compare = bcrypt.compareSync(password,user.password)
+        const checkPassword = bcrypt.compareSync(password,hash.password)
             
-        if(compare === true ){
-            const auth =  knex("account")
+        if(!checkPassword){
+            throw reply.code(404).send({message:'User not found'})
+        }
+
+        const user =  await knex("account")
             .select("id","name",'administer')
             .where({
                 email: email,
             })
             .first()
-            .then(data => data)
-            
-            return auth
-        }else {
-            throw 'Error 404 - User and password not found'
+
+        try {            
+            const secret= process.env.JWT_SECRET
+
+            const token = jwt.sign(
+                {
+                id: user.id
+                },
+                secret,
+            )
+
+            return reply.status(200).send({user,token})
+
+        } catch (err) {
+            return reply.status(422).send({message:'Access deny'})
         }
-
-        
-
-
     }
     
 }
