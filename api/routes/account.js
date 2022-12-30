@@ -4,90 +4,18 @@ const knex = require('../database/client')
 
 async function routes(fastify, options) {  
   fastify.post(
-    "/account/register",
-    {},
+    "/register",
     async (request,reply) => {
 
       const {name,birthData,email,password,sex,uf,confirmPassword} = request.body
+
+      return fastify.service.Account.register(name,birthData,email,password,sex,uf,confirmPassword,reply)      
       
-      const userExist = await knex('account')
-        .where('email',email)
-        .first()
-
-      if(!name){
-        return reply.code(422).send({message:"O campo 'nome' é obrigatorio"})
-      }
-      if(!email){
-        return  reply.code(422).send({message:"O campo 'e-mail' é obrigatorio"})
-      }
-      if(userExist){
-        return reply.status(422).send({message:`E-mail já casdatrado.`})
-      }        
-      if(!password){
-        return  reply.code(422).send({message:"O campo 'senha' é obrigatorio"})
-      }
-      if(password != confirmPassword){
-        return   reply.code(422).send({message:`Senha e confirmação de senha não são iguais`})
-      }
-
-
-      const salt = bcrypt.genSaltSync(10)
-      const hash = bcrypt.hashSync(password,salt)
-
-      let sendEmail = false
-
-      try {
-        fastify.knex("account")
-          .insert({
-            name: name,
-            birthData: birthData,
-            email:email,
-            password: hash,
-            sex: sex,
-            uf: uf,
-            administer: false
-          })
-          .then(
-            newAccount => {
-              sendEmail = true              
-              return newAccount
-            }
-
-          )
-      }
-      catch {
-       throw 'Erro ao cadastrar'
-      }
-
-      
-      if(sendEmail === true){    
-        let transporter  = nodemailer.createTransport({
-          host: "smtp.gmail.com",
-          port: 465,
-          secure: true, 
-          auth: {
-            user: 'filipecayandev@gmail.com', 
-            pass: process.env.NODE_MAIL_PASSWORD, 
-          },
-        })
-
-        let info = await transporter.sendMail({
-          from: 'Clube do Livro <filipecayandev@gmail.com>', // sender address
-          to: email, // list of receivers
-          subject: "Bem-vindo", // Subject line
-          text: "Welcome to BookClub", // plain text body          
-        });
-        
-        return info
-      }
-      else{
-        throw 'Erro ao enviar email'
-      }
     },
   )
 
   fastify.get(
-    "/account/:id/data",
+    "/:id/data",
     async (request) => {
       const { id } = request.params
 
@@ -109,7 +37,7 @@ async function routes(fastify, options) {
 
 
   fastify.put(
-    "/account/:id/update",
+    "/:id/update",
     {},
     async (request, reply) => {
 
@@ -141,7 +69,7 @@ async function routes(fastify, options) {
   )
 
   fastify.post(
-    "/account/add_favorite_club",
+    "/add_favorite_club",
     {},
     async (request, reply) => {
       const { clubId } = request.body
@@ -157,7 +85,7 @@ async function routes(fastify, options) {
   )
 
   fastify.get(
-    "/account/:account_id/favorited_club/:club_id",
+    "/:account_id/favorited_club/:club_id",
     {},
     async (request) => {
       const { club_id } = request.params
@@ -174,7 +102,7 @@ async function routes(fastify, options) {
   )
 
   fastify.delete(
-    "/account/:account_id/remove_favorited_club/:club_id",
+    "/:account_id/remove_favorited_club/:club_id",
     {},
     async (request, reply) => {
       const { club_id } = request.params
@@ -191,7 +119,7 @@ async function routes(fastify, options) {
   )
 
   fastify.get(
-    "/account/:account_id/favorited_club_list",
+    "/:account_id/favorited_club_list",
     {},
     async (request) => {
 
@@ -209,7 +137,7 @@ async function routes(fastify, options) {
   )
 
   fastify.delete(
-    '/account/:id/delete',
+    '/:id/delete',
     async (request) => {
 
       const { id } = request.params
@@ -234,7 +162,7 @@ async function routes(fastify, options) {
   )
 
   fastify.get(
-    '/account/:id/myclubs',
+    '/:id/myclubs',
     async (request, reply) => {
 
       const { id } = request.params
@@ -248,7 +176,7 @@ async function routes(fastify, options) {
   )
 
   fastify.post(
-    "/account/:id/add_favorite_book",
+    "/:id/add_favorite_book",
     {},
     async (request, reply) => {
       const { bookId } = request.body
@@ -275,7 +203,7 @@ async function routes(fastify, options) {
   )
     //vereficar necessidade
   fastify.get(
-    "/account/:id/favorite_book/:book_id",
+    "/:id/favorite_book/:book_id",
     {},
     async (request, reply) => {
       const { book_id } = request.params
@@ -290,7 +218,7 @@ async function routes(fastify, options) {
   )
 
   fastify.delete(
-    "/account/:id/remove_favorited_book/:book_id",
+    "/:id/remove_favorited_book/:book_id",
     {},
     async (request, reply) => {
       const { book_id } = request.params
@@ -305,7 +233,7 @@ async function routes(fastify, options) {
   )
 
   fastify.get(
-    "/account/:id/favorited_book_list",
+    "/:id/favorited_book_list",
     {},
     async (request, reply) => {
       const { id } = request.params
@@ -319,7 +247,7 @@ async function routes(fastify, options) {
   )
 
   fastify.post(
-    '/account/:id/add_my_library_read_list',
+    '/:id/add_my_library_read_list',
     async(request,reply)=>{
       const {id}=request.params
       const {book_id} = request.body
@@ -372,7 +300,7 @@ async function routes(fastify, options) {
   )
 
   fastify.post(
-    '/account/:id/add_my_library_want_to_read_list',
+    '/:id/add_my_library_want_to_read_list',
     async(request,reply)=>{
       const {id}=request.params
       const {book_id} = request.body      
@@ -422,7 +350,7 @@ async function routes(fastify, options) {
   )
 
   fastify.delete(
-    "/account/:id/remove_want_to_read/:bookId",
+    "/:id/remove_want_to_read/:bookId",
     {},
     async(request, reply) => {
       const {id} = request.params
@@ -438,7 +366,7 @@ async function routes(fastify, options) {
   )
 
   fastify.delete(
-    "/account/:id/remove_read/:bookId",
+    "/:id/remove_read/:bookId",
     {},
     async(request, reply) => {
       const {id} = request.params
@@ -454,7 +382,7 @@ async function routes(fastify, options) {
   )
 
   fastify.get(
-    "/account/:id/want_to_read_list",
+    "/:id/want_to_read_list",
     async(request, reply) => {
       const {id} = request.params
       fastify.knex("my_library")
@@ -467,7 +395,7 @@ async function routes(fastify, options) {
   )
 
   fastify.get(
-    "/account/:id/read_list",
+    "/:id/read_list",
     async(request, reply) => {
       const {id} = request.params
       fastify.knex("my_library")
