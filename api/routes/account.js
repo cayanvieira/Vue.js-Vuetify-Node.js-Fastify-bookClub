@@ -1,31 +1,47 @@
 const bcrypt = require('bcrypt')
 const nodemailer = require("nodemailer")
+const knex = require('../database/client')
 
 async function routes(fastify, options) {  
   fastify.post(
     "/account/register",
     {},
-    async (request, reply) => {
-      
+    async (request,reply) => {
 
-      const { name } = request.body
-      const { birthData } = request.body
-      const { email } = request.body
-      const { password } = request.body
-      const { sex } = request.body
-      const { uf } = request.body
+      const {name,birthData,email,password,sex,uf,confirmPassword} = request.body
       
+      const userExist = await knex('account')
+        .where('email',email)
+        .first()
+
+      if(!name){
+        return reply.code(422).send({message:"O campo 'nome' é obrigatorio"})
+      }
+      if(!email){
+        return  reply.code(422).send({message:"O campo 'e-mail' é obrigatorio"})
+      }
+      if(userExist){
+        return reply.status(422).send({message:`E-mail já casdatrado.`})
+      }        
+      if(!password){
+        return  reply.code(422).send({message:"O campo 'senha' é obrigatorio"})
+      }
+      if(password != confirmPassword){
+        return   reply.code(422).send({message:`Senha e confirmação de senha não são iguais`})
+      }
+
+
       const salt = bcrypt.genSaltSync(10)
       const hash = bcrypt.hashSync(password,salt)
 
       let sendEmail = false
 
       try {
-        const account = await fastify.knex("account")
+        fastify.knex("account")
           .insert({
             name: name,
             birthData: birthData,
-            email: email,
+            email:email,
             password: hash,
             sex: sex,
             uf: uf,
@@ -40,7 +56,7 @@ async function routes(fastify, options) {
           )
       }
       catch {
-        console.log('Erro ao cadastrar')
+       throw 'Erro ao cadastrar'
       }
 
       
@@ -65,7 +81,7 @@ async function routes(fastify, options) {
         return info
       }
       else{
-        return console.log('Erro ao enviar email')
+        throw 'Erro ao enviar email'
       }
     },
   )
