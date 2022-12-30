@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt')
 const knex = require('../database/client')
 
 module.exports = class Service{
-    async  login(email,password){    
+    async login(email,password){    
        
         const hash = await knex("account")
             .select('password')              
@@ -11,7 +11,7 @@ module.exports = class Service{
 
         const result = bcrypt.compareSync(password,hash.password)
             
-        if (result === true ){
+        if(result === true ){
             const auth =  knex("account")
             .select("id","name",'administer')
             .where({
