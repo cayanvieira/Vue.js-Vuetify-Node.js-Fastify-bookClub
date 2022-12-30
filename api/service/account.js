@@ -1,5 +1,7 @@
 const knex = require('../database/client')
 const bcrypt = require('bcrypt')
+const nodemailer = require("nodemailer")
+
 module.exports = class Service{
 
     async register(name,birthData,email,password,sex,uf,confirmPassword,reply){
