@@ -15,13 +15,13 @@ require('./routes/index.js')(fastify)
 require('./plugin/service')(fastify)
 
 
-fastify.get( '/', async(reply)=>{
- reply.send('Servidor Ligado')
+fastify.get( '/', async(request,reply) => {
+   reply.send('Servidor Ligado')
 })
 
 const start = async () => {
   try {
-    await fastify.listen(3000)
+    await fastify.listen({port:3000,host:'0.0.0.0'})
     console.log("Sucess Server On")    
   } catch (err) {
     fastify.log.error(err)

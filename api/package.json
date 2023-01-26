@@ -17,7 +17,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "nodemon": "nodemon server.js",
+    "nodemon": "node ./node_modules/nodemon/bin/nodemon.js server.js",
     "knex": "node -r dotenv/config database/cli.js"
   },
   "author": "",
