@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  api:
+    build: 
+      context: ./api
+    container_name: 'bookclub-api'
+    ports: 
+      - 3000:3000
+    depends_on:
+      - postgres
+    networks:
+      - bookclub
+    
+    
+  postgres:
+    image: 'postgres:14-alpine'
+    container_name: 'bookclub-postgres'
+    ports:
+      - 5444:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: bookclub
+    networks:
+      - bookclub
+
+  web:
+    build: 
+      context: ./web
+    container_name: 'bookclub-web'
+    ports: 
+      - 3000
+    depends_on:
+      - api
+      - postgres
+    networks:
+      - bookclub
+
+networks:
+  bookclub:
+    driver: bridge

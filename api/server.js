@@ -21,7 +21,7 @@ fastify.get( '/', async(request,reply) => {
 
 const start = async () => {
   try {
-    await fastify.listen({port:3000,host:'0.0.0.0'})
+    await fastify.listen({port:process.env.PORT,host:'0.0.0.0'})
     console.log("Sucess Server On")    
   } catch (err) {
     fastify.log.error(err)
