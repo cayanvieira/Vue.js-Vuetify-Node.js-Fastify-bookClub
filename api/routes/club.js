@@ -1,7 +1,7 @@
 async function routes(fastify, options) {
 
   fastify.post(
-    "/club/create",
+    "/create",
     {},
     async (request, reply) => {
 
@@ -29,7 +29,7 @@ async function routes(fastify, options) {
   )
 
   fastify.get(
-    "/club",
+    "/",
     async (reply) => {
       fastify.knex("club")
         .select('*')
@@ -38,7 +38,7 @@ async function routes(fastify, options) {
   )
 
   fastify.get(
-    "/club/:id",
+    "/:id",
     async (request, reply) => {
 
       const { id } = request.params
@@ -64,7 +64,7 @@ async function routes(fastify, options) {
   )
 
   fastify.post(
-    "/club/login",
+    "/login",
     {},
     async (request, reply) => {
 
@@ -91,7 +91,7 @@ async function routes(fastify, options) {
   )
 
   fastify.put(
-    '/club/create_description',
+    '/create_description',
     async (request, reply) => {
 
       const { description } = request.body
@@ -113,7 +113,7 @@ async function routes(fastify, options) {
 
 
   fastify.delete(
-    '/club/:id/delete_description',
+    '/:id/delete_description',
     async (request, reply) => {
 
       const { id } = request.params
@@ -128,7 +128,7 @@ async function routes(fastify, options) {
   )
 
   fastify.put(
-    '/club/:id/update_description',
+    '/:id/update_description',
     async (request, reply) => {
       const { id } = request.params
       const { description } = request.body
@@ -149,7 +149,7 @@ async function routes(fastify, options) {
   )
 
   fastify.put(
-    '/club/:id/update_book',
+    '/:id/update_book',
     async (request, reply) => {
       const { id } = request.params
       const { new_book } = request.body
@@ -164,7 +164,7 @@ async function routes(fastify, options) {
   )
 
   fastify.put(
-    '/club/:id/update_password',
+    '/:id/update_password',
     async (request, reply) => {
       const { id } = request.params
       const { password } = request.body
@@ -182,7 +182,7 @@ async function routes(fastify, options) {
   )
  
   fastify.delete(
-    '/club/:club_id/delete',
+    '/:club_id/delete',
     async (request, reply) => {
       const { club_id } = request.params
 

@@ -23,7 +23,7 @@ export const actions = {
       .then(response => response.data)
   },
   newBooks(_){
-    return this.$axios.get('/new_books')
+    return this.$axios.get('/book/new_books')
       .then(response => response.data)
   },
   delete(_,id){

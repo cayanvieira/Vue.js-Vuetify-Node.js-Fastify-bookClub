@@ -4,12 +4,13 @@ export const getters = {}
 
 export const actions = { 
    
-  async register(_,{name, birthData, email, password,uf,sex}) {
+  async register(_,{name, birthData, email, password,confirmPassword,uf,sex}) {
     return (await this.$axios.post('/account/register',{
       name:name,
       birthData:birthData,        
       email:email,
       password:password,
+      confirmPassword:confirmPassword,
       sex:sex,
       uf:uf,      
     })
@@ -32,7 +33,7 @@ export const actions = {
   },
 
   get(_,id){
-    return  this.$axios.get(`/account/${id}/data`)
+    return  this.$axios.get(`/account/${id}/information`)
     .then(response => response.data)
   },
 

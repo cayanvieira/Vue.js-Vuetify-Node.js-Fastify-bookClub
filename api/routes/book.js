@@ -1,7 +1,7 @@
 async function routes(fastify, options) {
     
     fastify.post(
-        '/book/register',
+        '/register',
         async(request,reply) =>{
 
             const {name} = request.body
@@ -25,7 +25,7 @@ async function routes(fastify, options) {
     )
 
     fastify.put(
-        '/book/:id/update',
+        '/:id/update',
         async(request, reply) => {
             const {id} = request.params
             const {name} = request.body
@@ -52,7 +52,7 @@ async function routes(fastify, options) {
     )
 
     fastify.delete(
-        '/book/:id/delete',
+        '/:id/delete',
         async(request, reply) => {
             const {id} = request.params
 
@@ -64,7 +64,7 @@ async function routes(fastify, options) {
     )
     
     fastify.get(
-        '/book/list',
+        '/list',
         async(request, reply) => {
             const {id} = request.params
 
@@ -75,7 +75,7 @@ async function routes(fastify, options) {
     )
 
     fastify.get(
-        '/book/:id',
+        '/:id',
         async(request, reply) => {
             const {id} = request.params
 

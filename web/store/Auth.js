@@ -7,8 +7,9 @@ export const getters = {}
 export const actions = { 
    
   login(storeAuth,{email, password}) {
+    
     return this.$axios
-      .post('/login',{
+      .post('/auth/signin',{
         email:email,
         password:password   
       })

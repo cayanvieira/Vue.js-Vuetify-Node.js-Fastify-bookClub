@@ -205,7 +205,7 @@
                 <v-card-subtitle class="d-flex justify-center pa-0">Entrar no Club</v-card-subtitle>
                 <v-divider></v-divider>
                 <v-card-title class="justify-center">
-                     {{detail.name.toUpperCase()}} 
+                     <!-- {{detail.name.toUpperCase()}}  -->
                 </v-card-title>
                 <v-divider></v-divider>                
                 <v-text-field

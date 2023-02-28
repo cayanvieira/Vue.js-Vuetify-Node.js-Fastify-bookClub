@@ -5,9 +5,9 @@ const nodemailer = require("nodemailer")
 module.exports = class Service{
 
     async register(name,birthData,email,password,sex,uf,confirmPassword,reply){
-        const userExist = await knex('account')
-        .where('email',email)
-        .first()
+      const userExist = await knex('account')
+      .where('email',email)
+      .first()
 
       if(!name){
         throw reply.code(422).send({message:"O campo 'nome' é obrigatorio"})

@@ -441,6 +441,7 @@ export default {
           email: this.form.email,
           uf: this.form.uf,
           password: this.form.password,
+          confirmPassword: this.form.checkPassword
         };
         this.$store.dispatch("Account/register", params);
         this.alertRegister = true;

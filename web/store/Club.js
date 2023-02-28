@@ -38,7 +38,7 @@ export const actions = {
 
   async fetchNewClubs() {
     try {
-      return (await this.$axios.get('/newclubs'))
+      return (await this.$axios.get('/club/newclubs'))
         .data
     } catch (error) {
       console.log('Erro fetchNewClubs')

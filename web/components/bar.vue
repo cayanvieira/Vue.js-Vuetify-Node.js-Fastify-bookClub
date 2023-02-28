@@ -17,7 +17,7 @@
             </div>
         
             <div class="d-flex justify-center ma-3 font-italic text-decoration-underline">
-                {{whoami.name.toUpperCase()}}
+                <!-- {{whoami.name.toUpperCase()}} -->
             </div>            
             <v-list-item-group>                
                 <v-divider></v-divider>

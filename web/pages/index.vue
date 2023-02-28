@@ -1,9 +1,8 @@
 <template>
     <v-app>
         <v-main class="d-flex justify-center align-center blue-grey darken-3">                   
-            <v-container class="d-flex justify-center" >                                              
-                <div>
-                    
+            <v-container class="d-flex justify-center" >                    
+                <div>                    
                     <v-card
                         class="d-flex justify-center  rounded-xl "
                         height="450px"
@@ -88,7 +87,7 @@
                     </div>
                 </v-card>                
             </v-dialog>                
-            </v-container>
+            </v-container>            
         </v-main>     
     </v-app>        
 </template>

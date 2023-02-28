@@ -1,6 +1,3 @@
-const bcrypt = require('bcrypt')
-const nodemailer = require("nodemailer")
-const knex = require('../database/client')
 
 async function routes(fastify, options) {  
   fastify.post(
@@ -16,21 +13,18 @@ async function routes(fastify, options) {
 
   
   fastify.get(
-    "/:id/data",
+    "/:id/information",
+    // {
+    //   onRequest: [fastify.authenticate]
+    // },    
     async (request) => {
       const { id } = request.params
 
-      const knex = require('../database/client')
-      const data = knex('account')
-        .select('*')
+      
+      const data = fastify.knex('account')
+        .select('name','birthData','sex','email','uf')
         .where('id', id)
-        .first()
-        .then(item => {
-          delete item.id
-          delete item.password
-          delete item.administer
-          return item
-        })
+        .first()        
 
       return data
     }
